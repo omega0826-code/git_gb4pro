@@ -11,6 +11,18 @@ temp/
 *.rej
 *.patch
 
+# 문서/워드/data 파일
+*.docx
+*.doc
+*.xlsx
+*.xls
+*.pptx
+*.ppt
+*.hwp
+*.pdf
+*.csv
+
+
 # 가상환경/캐시/IDE
 .venv/
 env/

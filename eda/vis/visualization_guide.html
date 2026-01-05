@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>visualization_guide</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .content {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        img { max-width: 100%; height: auto; display: block; margin: 20px auto; border: 1px solid #ddd; border-radius: 4px; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        code { background-color: #f4f4f4; padding: 2px 4px; border-radius: 4px; font-family: 'Courier New', Courier, monospace; }
+        pre { background-color: #f4f4f4; padding: 15px; border-radius: 4px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>시각화 코드 모듈화 가이드</h1>
+<p>EDA에 사용된 주요 시각화 코드 패턴 및 재사용 가능한 함수 예시입니다.</p>
+<h2>1. 한글 폰트 설정</h2>
+<p>OS별로 한글 폰트를 자동으로 설정하여 그래프 깨짐을 방지합니다.</p>
+<pre><code class="language-python">import os
+import sys
+import matplotlib.pyplot as plt
+
+def set_korean_font():
+    &quot;&quot;&quot;
+    OS 환경에 맞는 한글 폰트를 설정합니다.
+    Windows: Malgun Gothic
+    Mac: AppleGothic
+    Linux: NanumGothic
+    &quot;&quot;&quot;
+    if os.name == 'nt':
+        plt.rc('font', family='Malgun Gothic')
+    elif sys.platform == 'darwin':
+        plt.rc('font', family='AppleGothic')
+    else:
+        plt.rc('font', family='NanumGothic')
+
+    # 마이너스 기호 깨짐 방지
+    plt.rc('axes', unicode_minus=False)
+</code></pre>
+<h2>2. 히스토그램 (Histogram)</h2>
+<p>수치형 데이터의 분포를 파악합니다.</p>
+<pre><code class="language-python">import seaborn as sns
+
+def plot_histogram(data, column, title, save_path=None, bins=30):
+    plt.figure(figsize=(10, 5))
+    sns.histplot(data[column], bins=bins, kde=True)
+    plt.title(title)
+    if save_path:
+        plt.savefig(save_path)
+        plt.close()
+    else:
+        plt.show()
+</code></pre>
+<h2>3. 바 차트 (Bar Chart)</h2>
+<p>범주형 데이터의 빈도를 비교합니다.</p>
+<pre><code class="language-python">def plot_bar_chart(x_data, y_data, title, save_path=None):
+    plt.figure(figsize=(12, 6))
+    sns.barplot(x=x_data, y=y_data)
+    plt.title(title)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    if save_path:
+        plt.savefig(save_path)
+        plt.close()
+    else:
+        plt.show()
+</code></pre>
+<h2>4. 워드클라우드 (WordCloud)</h2>
+<p>텍스트 키워드 빈도를 시각화합니다. 한글 폰트 경로(<code>font_path</code>) 지정이 필수입니다.</p>
+<pre><code class="language-python">from wordcloud import WordCloud
+
+def generate_wordcloud(frequencies, font_path, save_path=None):
+    &quot;&quot;&quot;
+    frequencies: Counter 객체 또는 {단어: 빈도} 딕셔너리
+    font_path: 한글 폰트 파일 경로 (예: C:/Windows/Fonts/malgun.ttf)
+    &quot;&quot;&quot;
+    wc = WordCloud(font_path=font_path, 
+                   background_color='white', 
+                   width=800, height=600,
+                   max_words=100)
+    wc.generate_from_frequencies(frequencies)
+
+    if save_path:
+        wc.to_file(save_path)
+    else:
+        return wc.to_image()
+</code></pre>
+    </div>
+</body>
+</html>

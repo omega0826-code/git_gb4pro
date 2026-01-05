@@ -1,0 +1,1082 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eda_step1_report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .content {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        img { max-width: 100%; height: auto; display: block; margin: 20px auto; border: 1px solid #ddd; border-radius: 4px; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        code { background-color: #f4f4f4; padding: 2px 4px; border-radius: 4px; font-family: 'Courier New', Courier, monospace; }
+        pre { background-color: #f4f4f4; padding: 15px; border-radius: 4px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>1차 EDA 분석 리포트</h1>
+<h2>1. 데이터 개요</h2>
+<ul>
+<li>데이터 크기: (1103, 11)</li>
+<li>컬럼 목록: ['id', 'hospital_name', 'rating', 'review_count', 'event_count', 'district_code', 'introduction', 'treatment_tags', 'doctors', 'address', 'crawled']</li>
+</ul>
+<h3>데이터 샘플</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;"></th>
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">hospital_name</th>
+<th style="text-align: right;">rating</th>
+<th style="text-align: right;">review_count</th>
+<th style="text-align: right;">event_count</th>
+<th style="text-align: left;">district_code</th>
+<th style="text-align: left;">introduction</th>
+<th style="text-align: left;">treatment_tags</th>
+<th style="text-align: left;">doctors</th>
+<th style="text-align: left;">address</th>
+<th style="text-align: left;">crawled</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">250</td>
+<td style="text-align: left;">디에이성형외과의원</td>
+<td style="text-align: right;">9.6</td>
+<td style="text-align: right;">37157</td>
+<td style="text-align: right;">67</td>
+<td style="text-align: left;">N1101</td>
+<td style="text-align: left;">디에이성형외과는 기본에 충실한 마음으로 더 완성도 높은</td>
+<td style="text-align: left;">눈성형, 코성형, 지방성형, 필러, 보톡스, 리프팅, 가슴성형, 안면윤곽/양악, 모발이식, 기타, 피부</td>
+<td style="text-align: left;">이상우(성형외과), 박태준(), 양희재(성형외과), 류우상(성형외과), 구현국(성형외과), 이동찬(성형외과), 박민석(성형외과), 이윤환(성형외과), 임승택(), 배재영(성형외과), 김윤정(이비인후과), 강현구(성형외과), 김도연(성형외과), 이성주(성형외과), 장주윤(성형외과), 박준우(이비인후과), 김석환(성형외과), 윤현식(성형외과), 안경찬(성형외과), 이동욱(), 유영선(성형외과), 이재현(성형외과), 남동우(성형외과), 김태기(성형외과), 이현건(성형외과), 서상훈(성형외과), 김동현(가정의학과), 김시호(), 박진우(성형외과), 김진빈(성형외과), 김성환(마취통증의학과), 양혜모(마취통증의학과), 최현정(마취통증의학과), 서민구(마취통증의학과), 조동원(마취통증의학과), 이미숙(마취통증의학과), 안상범(마취통증의학과), 조지훈(마취통증의학과), 주지연(마취통증의학과)</td>
+<td style="text-align: left;">서울 강남구 테헤란로 125 D.A디에이성형외과</td>
+<td style="text-align: left;">True</td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">결과를 위해 끊임없이 연구합니다.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">-전담의료인의 정밀한 진단과 수술</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">-정직한 상담과 고객맞춤형 수술플랜</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">-수술방 실명제</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">-마취통증의학과 전문의 9인</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">-대학병원급 의료장비와 안심시스템 구비</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">-체계적인 사후관리시스템 운영</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">938</td>
+<td style="text-align: left;">나나성형외과의원</td>
+<td style="text-align: right;">9.6</td>
+<td style="text-align: right;">26522</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: left;">N1101</td>
+<td style="text-align: left;">NA는 오늘, NA에게 반해버렸다</td>
+<td style="text-align: left;">눈성형, 코성형, 지방성형, 리프팅, 필러, 보톡스, 가슴성형, 안면윤곽/양악, 피부</td>
+<td style="text-align: left;">황동연(성형외과), 김형준(성형외과), 김윤호(성형외과), 권병윤(성형외과), 조성수(가정의학과), 최정식(성형외과), 정미선(성형외과), 양은진(성형외과), 이연지(성형외과), 조진태(성형외과), 김재원(성형외과), 강교준(성형외과), 박송이(성형외과), 최혁준(성형외과), 권효정(성형외과), 이승제(성형외과), 조민호(이비인후과), 김성애(성형외과), 김다희(성형외과), 박민석(성형외과), 안마립(성형외과), 김민성(가정의학과), 김지은(가정의학과), 박연수(마취통증의학과), 경문기(마취통증의학과), 김일환(성형외과)</td>
+<td style="text-align: left;">서울 강남구 압구정로 406 나나성형외과의원</td>
+<td style="text-align: left;">True</td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">나나성형외과</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">1. 개개인의 특징을 고려한 1:1 맞춤 진료</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">2. 수술실 CCTV 설치, 수술실명제 시행</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">3. 마취통증의학과전문의 상주 및 안심시스템 구축</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">4. 상담부터 수술, 사후관리까지! 체계적인 의료 시스템</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">눈성형 · 코성형 · 가슴성형 · 윤곽성형 ·</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">남자성형 · 리프팅 · 체형성형 · 쁘띠 시술 · 유방검진 등등</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">각 분야별 전문 의료진이 세심하게 진료하여</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">만족스러운 결과를 위해 항상 노력하고 있습니다!</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">새로운 나를 위한 선택!</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">지금 바로! 나나성형외과를 찾아주세요!</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3234</td>
+<td style="text-align: left;">사적인아름다움지유의원</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">38391</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">N1101</td>
+<td style="text-align: left;">사적인 아름다움 지유는 고객의 시각에 충실한 뷰티 클리닉입니다.</td>
+<td style="text-align: left;">피부, 보톡스, 필러, 리프팅, 기타, 제모</td>
+<td style="text-align: left;">권도윤(), 정연성(성형외과), 김하은(), 김혁수(), 나윤채(), 박기범(), 박혜민(), 양재우(), 이금영(), 이종은()</td>
+<td style="text-align: left;">서울 서초구 서초대로77길 54 (서초동, 서초더블유타워) 3층, 4층, 11층 사적인아름다움지유의원</td>
+<td style="text-align: left;">True</td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">고객에게 잠재된 아름다움을 이끌어내는 데 집중하며,</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">고객 평가를 투명하게 공개하는 운영 방식을 선도적으로 도입합니다.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">고객의 개인적인 고민에서 출발하여, 고객의 솔직한 평가로 귀결되는 클리닉,</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">사적인 아름다움 지유의원입니다.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">울쎄라, 써마지, 튠페이스, 슈링크 유니버스, 젠틀맥스프로 등 다양한 장비 보유중이며</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">레이저 리프팅 뿐만아니라 보톡스, 필러, 지방분해주사 등 여러 시술로 고객 여러분의 고유한 드라마를 찾아드리는 피부과의원입니다.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1982</td>
+<td style="text-align: left;">미케이의원</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">13850</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: left;">N1101</td>
+<td style="text-align: left;">안녕하세요, 오늘보다 더 아름다운 내일을 위해 노력하는 미케이의원입니다:)</td>
+<td style="text-align: left;">필러, 보톡스, 피부, 리프팅, 기타</td>
+<td style="text-align: left;">노영근()</td>
+<td style="text-align: left;">서울 서초구 서초대로77길 24 강남 지웰타워2 4층 미케이의원</td>
+<td style="text-align: left;">True</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3004</td>
+<td style="text-align: left;">에이비성형외과의원</td>
+<td style="text-align: right;">9.5</td>
+<td style="text-align: right;">12812</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: left;">N1101</td>
+<td style="text-align: left;">자연스럽게, 더 나답게</td>
+<td style="text-align: left;">눈성형, 코성형, 안면윤곽/양악, 가슴성형, 지방성형, 필러, 보톡스, 리프팅, 피부, 기타</td>
+<td style="text-align: left;">김주연(성형외과), 안승현(성형외과), 배인호(성형외과), 박성호(성형외과), 조동필(성형외과), 안문영(성형외과), 도경현(성형외과), 최재익(성형외과), 서찬얼(성형외과), 마성환(성형외과), 김수정(성형외과), 송천호(성형외과), 서제원(성형외과), 박성훈(성형외과), 정연우(성형외과), 조규상(성형외과), 손지환(성형외과), 김승현(가정의학과), 백인철(), 신희지(외과), 구원영(성형외과), 김지원(), 최수민()</td>
+<td style="text-align: left;">서울 서초구 서초대로77길 17 (서초동, BLOCK77) 2-4층</td>
+<td style="text-align: left;">True</td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">예쁨의 시작은 에이비성형외과에서.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">눈성형·코성형·안면윤곽·가슴성형·남자성형·재수술·피부 클리닉까지</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">각 분야별 숙련된 전문 의료진이 섬세한 디자인과 안전한 수술로 ‘나다운 아름다움’을 만드는 성형외과, 바로 에이비입니다.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<h2>2. 결측치 분석</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Missing Count</th>
+<th style="text-align: right;">Ratio (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">id</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td style="text-align: left;">hospital_name</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td style="text-align: left;">rating</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td style="text-align: left;">review_count</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td style="text-align: left;">event_count</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td style="text-align: left;">district_code</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td style="text-align: left;">introduction</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.453309</td>
+</tr>
+<tr>
+<td style="text-align: left;">treatment_tags</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.181324</td>
+</tr>
+<tr>
+<td style="text-align: left;">doctors</td>
+<td style="text-align: right;">208</td>
+<td style="text-align: right;">18.8577</td>
+</tr>
+<tr>
+<td style="text-align: left;">address</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0906618</td>
+</tr>
+<tr>
+<td style="text-align: left;">crawled</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Missing Values" src="images/missing_values.png" /></p>
+<h2>3. 기초 통계량 (수치형)</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">rating</th>
+<th style="text-align: right;">review_count</th>
+<th style="text-align: right;">event_count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">count</td>
+<td style="text-align: right;">1103</td>
+<td style="text-align: right;">1103</td>
+<td style="text-align: right;">1103</td>
+<td style="text-align: right;">1103</td>
+</tr>
+<tr>
+<td style="text-align: left;">mean</td>
+<td style="text-align: right;">4454.18</td>
+<td style="text-align: right;">8.06346</td>
+<td style="text-align: right;">839.897</td>
+<td style="text-align: right;">7.97461</td>
+</tr>
+<tr>
+<td style="text-align: left;">std</td>
+<td style="text-align: right;">2599.2</td>
+<td style="text-align: right;">3.27108</td>
+<td style="text-align: right;">2612.64</td>
+<td style="text-align: right;">10.8511</td>
+</tr>
+<tr>
+<td style="text-align: left;">min</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td style="text-align: left;">25%</td>
+<td style="text-align: right;">2317</td>
+<td style="text-align: right;">8.9</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td style="text-align: left;">50%</td>
+<td style="text-align: right;">4653</td>
+<td style="text-align: right;">9.4</td>
+<td style="text-align: right;">158</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr>
+<td style="text-align: left;">75%</td>
+<td style="text-align: right;">6798.5</td>
+<td style="text-align: right;">9.65</td>
+<td style="text-align: right;">666</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr>
+<td style="text-align: left;">max</td>
+<td style="text-align: right;">8064</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">38391</td>
+<td style="text-align: right;">75</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 컬럼별 상세 분석</h2>
+<h3>Rating (평점)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">rating</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">count</td>
+<td style="text-align: right;">1103</td>
+</tr>
+<tr>
+<td style="text-align: left;">mean</td>
+<td style="text-align: right;">8.06346</td>
+</tr>
+<tr>
+<td style="text-align: left;">std</td>
+<td style="text-align: right;">3.27108</td>
+</tr>
+<tr>
+<td style="text-align: left;">min</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td style="text-align: left;">25%</td>
+<td style="text-align: right;">8.9</td>
+</tr>
+<tr>
+<td style="text-align: left;">50%</td>
+<td style="text-align: right;">9.4</td>
+</tr>
+<tr>
+<td style="text-align: left;">75%</td>
+<td style="text-align: right;">9.65</td>
+</tr>
+<tr>
+<td style="text-align: left;">max</td>
+<td style="text-align: right;">10</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Rating Distribution" src="images/rating_dist.png" /></p>
+<h3>Review Count (리뷰 수)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">review_count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">count</td>
+<td style="text-align: right;">1103</td>
+</tr>
+<tr>
+<td style="text-align: left;">mean</td>
+<td style="text-align: right;">839.897</td>
+</tr>
+<tr>
+<td style="text-align: left;">std</td>
+<td style="text-align: right;">2612.64</td>
+</tr>
+<tr>
+<td style="text-align: left;">min</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td style="text-align: left;">25%</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr>
+<td style="text-align: left;">50%</td>
+<td style="text-align: right;">158</td>
+</tr>
+<tr>
+<td style="text-align: left;">75%</td>
+<td style="text-align: right;">666</td>
+</tr>
+<tr>
+<td style="text-align: left;">max</td>
+<td style="text-align: right;">38391</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Review Count Distribution" src="images/review_count_dist.png" /></p>
+<h3>Event Count (이벤트 수)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">event_count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">count</td>
+<td style="text-align: right;">1103</td>
+</tr>
+<tr>
+<td style="text-align: left;">mean</td>
+<td style="text-align: right;">7.97461</td>
+</tr>
+<tr>
+<td style="text-align: left;">std</td>
+<td style="text-align: right;">10.8511</td>
+</tr>
+<tr>
+<td style="text-align: left;">min</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td style="text-align: left;">25%</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td style="text-align: left;">50%</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr>
+<td style="text-align: left;">75%</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr>
+<td style="text-align: left;">max</td>
+<td style="text-align: right;">75</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Event Count Distribution" src="images/event_count_dist.png" /></p>
+<h3>District Code (지역 코드)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">district_code</th>
+<th style="text-align: right;">count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">N1101</td>
+<td style="text-align: right;">200</td>
+</tr>
+<tr>
+<td style="text-align: left;">N1102</td>
+<td style="text-align: right;">200</td>
+</tr>
+<tr>
+<td style="text-align: left;">N1403</td>
+<td style="text-align: right;">80</td>
+</tr>
+<tr>
+<td style="text-align: left;">N1104</td>
+<td style="text-align: right;">73</td>
+</tr>
+<tr>
+<td style="text-align: left;">N1103</td>
+<td style="text-align: right;">42</td>
+</tr>
+<tr>
+<td style="text-align: left;">N1107</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr>
+<td style="text-align: left;">N1109</td>
+<td style="text-align: right;">37</td>
+</tr>
+<tr>
+<td style="text-align: left;">N1111</td>
+<td style="text-align: right;">27</td>
+</tr>
+<tr>
+<td style="text-align: left;">N1108</td>
+<td style="text-align: right;">27</td>
+</tr>
+<tr>
+<td style="text-align: left;">N1306</td>
+<td style="text-align: right;">22</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="District Count" src="images/district_count.png" /></p>
+<h3>Treatment Tags (진료 태그)</h3>
+<p>Top 20 Tags:
+|               |   count |
+|:--------------|--------:|
+| 보톡스        |     770 |
+| 리프팅        |     765 |
+| 필러          |     733 |
+| 피부          |     662 |
+| 기타          |     568 |
+| 지방성형      |     433 |
+| 눈성형        |     387 |
+| 코성형        |     370 |
+| 제모          |     271 |
+| 가슴성형      |     216 |
+| 안면윤곽/양악 |     144 |
+| 치아          |     101 |
+| 한방          |      80 |
+| 모발이식      |      31 |</p>
+<p><img alt="Tags Count" src="images/tags_count.png" /></p>
+<h3>Doctors (의사)</h3>
+<p>Doctors 컬럼 결측치 수: 208
+Doctors 데이터 샘플 (Top 5):
+|    | doctors                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+|---:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|  0 | 이상우(성형외과), 박태준(), 양희재(성형외과), 류우상(성형외과), 구현국(성형외과), 이동찬(성형외과), 박민석(성형외과), 이윤환(성형외과), 임승택(), 배재영(성형외과), 김윤정(이비인후과), 강현구(성형외과), 김도연(성형외과), 이성주(성형외과), 장주윤(성형외과), 박준우(이비인후과), 김석환(성형외과), 윤현식(성형외과), 안경찬(성형외과), 이동욱(), 유영선(성형외과), 이재현(성형외과), 남동우(성형외과), 김태기(성형외과), 이현건(성형외과), 서상훈(성형외과), 김동현(가정의학과), 김시호(), 박진우(성형외과), 김진빈(성형외과), 김성환(마취통증의학과), 양혜모(마취통증의학과), 최현정(마취통증의학과), 서민구(마취통증의학과), 조동원(마취통증의학과), 이미숙(마취통증의학과), 안상범(마취통증의학과), 조지훈(마취통증의학과), 주지연(마취통증의학과) |
+|  1 | 황동연(성형외과), 김형준(성형외과), 김윤호(성형외과), 권병윤(성형외과), 조성수(가정의학과), 최정식(성형외과), 정미선(성형외과), 양은진(성형외과), 이연지(성형외과), 조진태(성형외과), 김재원(성형외과), 강교준(성형외과), 박송이(성형외과), 최혁준(성형외과), 권효정(성형외과), 이승제(성형외과), 조민호(이비인후과), 김성애(성형외과), 김다희(성형외과), 박민석(성형외과), 안마립(성형외과), 김민성(가정의학과), 김지은(가정의학과), 박연수(마취통증의학과), 경문기(마취통증의학과), 김일환(성형외과)                                                                                                                                                                                                                                                   |
+|  2 | 권도윤(), 정연성(성형외과), 김하은(), 김혁수(), 나윤채(), 박기범(), 박혜민(), 양재우(), 이금영(), 이종은()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+|  3 | 노영근()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+|  4 | 김주연(성형외과), 안승현(성형외과), 배인호(성형외과), 박성호(성형외과), 조동필(성형외과), 안문영(성형외과), 도경현(성형외과), 최재익(성형외과), 서찬얼(성형외과), 마성환(성형외과), 김수정(성형외과), 송천호(성형외과), 서제원(성형외과), 박성훈(성형외과), 정연우(성형외과), 조규상(성형외과), 손지환(성형외과), 김승현(가정의학과), 백인철(), 신희지(외과), 구원영(성형외과), 김지원(), 최수민()                                                                                                                                                                                                                                                                                                                                                       |</p>
+<h3>Address (주소)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">gu</th>
+<th style="text-align: right;">count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">강남구</td>
+<td style="text-align: right;">365</td>
+</tr>
+<tr>
+<td style="text-align: left;">서초구</td>
+<td style="text-align: right;">171</td>
+</tr>
+<tr>
+<td style="text-align: left;">부산진구</td>
+<td style="text-align: right;">74</td>
+</tr>
+<tr>
+<td style="text-align: left;">중구</td>
+<td style="text-align: right;">39</td>
+</tr>
+<tr>
+<td style="text-align: left;">대구</td>
+<td style="text-align: right;">39</td>
+</tr>
+<tr>
+<td style="text-align: left;">마포구</td>
+<td style="text-align: right;">38</td>
+</tr>
+<tr>
+<td style="text-align: left;">송파구</td>
+<td style="text-align: right;">31</td>
+</tr>
+<tr>
+<td style="text-align: left;">남동구</td>
+<td style="text-align: right;">26</td>
+</tr>
+<tr>
+<td style="text-align: left;">강서구</td>
+<td style="text-align: right;">22</td>
+</tr>
+<tr>
+<td style="text-align: left;">서구</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr>
+<td style="text-align: left;">동안구</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr>
+<td style="text-align: left;">해운대구</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr>
+<td style="text-align: left;">영등포구</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr>
+<td style="text-align: left;">팔달구</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr>
+<td style="text-align: left;">노원구</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr>
+<td style="text-align: left;">남구</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr>
+<td style="text-align: left;">부평구</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr>
+<td style="text-align: left;">분당구</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr>
+<td style="text-align: left;">강동구</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr>
+<td style="text-align: left;">성산구</td>
+<td style="text-align: right;">8</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Address Gu Distribution" src="images/address_gu_dist.png" /></p>
+    </div>
+</body>
+</html>

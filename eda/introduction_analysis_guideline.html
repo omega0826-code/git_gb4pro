@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>introduction_analysis_guideline</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .content {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        img { max-width: 100%; height: auto; display: block; margin: 20px auto; border: 1px solid #ddd; border-radius: 4px; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        code { background-color: #f4f4f4; padding: 2px 4px; border-radius: 4px; font-family: 'Courier New', Courier, monospace; }
+        pre { background-color: #f4f4f4; padding: 15px; border-radius: 4px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>병원 소개글(Introduction) 심층 분석 가이드라인</h1>
+<h2>1. 분석 개요</h2>
+<p>본 가이드라인은 <code>introduction</code> 컬럼에 담긴 병원 소개 텍스트를 심층 분석하여, 병원들의 홍보 전략과 텍스트 품질을 파악하고 효과적인 병원 소개글 작성을 위한 인사이트를 도출하는 것을 목적으로 한다.</p>
+<h2>2. 분석 관점 및 방법론</h2>
+<h3>2.1 정량적 구조 분석 (Quantitative Structure Analysis)</h3>
+<p>텍스트의 외형적인 특징을 분석한다.
+- <strong>길이 분석:</strong>
+  - 전체 글자 수 (공백 포함/제외) 분포 확인.
+  - 단어 수 및 문장 수 분포 확인.
+  - 너무 짧거나(정보 부족) 너무 긴(가독성 저하) 소개글 식별.
+- <strong>가독성 지표:</strong>
+  - 줄바꿈(\n) 사용 빈도 분석.
+  - 특수문자(!, ?, ~, 이모지 등) 사용 비율 분석.</p>
+<h3>2.2 키워드 및 내용 분석 (Content &amp; Keyword Analysis)</h3>
+<p>텍스트의 핵심 내용을 파악한다.
+- <strong>핵심 키워드 추출:</strong>
+  - 형태소 분석기(Kiwi)를 활용하여 명사(NNG, NNP), 어근(XR) 추출.
+  - 불용어(병원, 진료, 환자 등 너무 일반적인 단어) 제외 후 상위 빈도 단어 도출.
+- <strong>워드클라우드 시각화:</strong>
+  - 전체 병원 소개글의 주요 키워드를 시각화하여 트렌드 파악.
+- <strong>주요 홍보 포인트 식별:</strong>
+  - '전문', '경력', '시설', '최신', '친절', '상담' 등 특정 카테고리 단어들의 등장 빈도 분석.</p>
+<h3>2.3 텍스트 품질 분석 (Text Quality Analysis)</h3>
+<ul>
+<li><strong>중복 및 패턴:</strong></li>
+<li>동일하거나 매우 유사한 소개글을 사용하는 병원 그룹 식별 (프랜차이즈 여부 파악).</li>
+<li>광고성 문구 반복 여부.</li>
+</ul>
+<h2>3. 분석 도구 및 환경</h2>
+<ul>
+<li><strong>Language:</strong> Python</li>
+<li><strong>Libraries:</strong></li>
+<li><code>pandas</code>: 데이터 처리</li>
+<li><code>kiwipiepy</code>: 한국어 형태소 분석 (속도 및 정확도 우수)</li>
+<li><code>wordcloud</code>: 키워드 시각화</li>
+<li><code>matplotlib</code>, <code>seaborn</code>: 통계 시각화</li>
+<li><code>re</code>: 정규 표현식을 이용한 패턴 매칭</li>
+</ul>
+<h2>4. 기대 산출물</h2>
+<ol>
+<li><strong>Introduction 통계 리포트:</strong> 길이 분포, 특수문자 사용량 등.</li>
+<li><strong>Keyword Top 50 리스트:</strong> 가장 많이 강조되는 단어 목록.</li>
+<li><strong>WordCloud 이미지:</strong> 직관적인 키워드 분포 이미지.</li>
+<li><strong>유형별 예시:</strong> 잘 쓴 소개글과 개선이 필요한 소개글 예시(정량적 기준에 의거).</li>
+</ol>
+    </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "last_index": 2,
+  "processed_count": 3,
+  "processed_indices": [
+    0,
+    1,
+    2
+  ],
+  "total_count": 3,
+  "timestamp": "2026-01-15T23:50:54.095796",
+  "error": "Missing optional dependency 'tabulate'.  Use pip or conda to install tabulate.",
+  "items": [
+    {
+      "원본_기관코드": "JDQ4MTg4MSM1MSMkMSMkMCMkODkkMzgxMzUxIzExIyQxIyQzIyQxMyQzNjEwMDIjODEjJDEjJDIjJDgz",
+      "원본_병원명": "삼성서울병원",
+      "원본_주소": "서울특별시 강남구 일원로 81, (일원동, 삼성의료원)"
+    },
+    {
+      "원본_기관코드": "JDQ4MTg4MSM1MSMkMSMkMCMkODkkMzgxMzUxIzExIyQxIyQzIyQ2MiQzNjE0ODEjNTEjJDEjJDYjJDgz",
+      "원본_병원명": "연세대학교의과대학 강남세브란스병원",
+      "원본_주소": "서울특별시 강남구 언주로 211, 강남세브란스병원 (도곡동)"
+    },
+    {
+      "원본_기관코드": "JDQ4MTg4MSM1MSMkMSMkMCMkOTkkMzgxMzUxIzMxIyQxIyQ3IyQ2MiQyNjE4MzIjODEjJDEjJDIjJDgz",
+      "원본_병원명": "강남제이에스병원",
+      "원본_주소": "서울특별시 강남구 도곡로 122, 제이에스빌딩 (도곡동)"
+    }
+  ]
+}

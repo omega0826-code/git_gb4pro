@@ -1,14 +1,15 @@
-# 건강보험심사평가원 의료기관별상세정보서비스 API 가이드라인
+# 건강보험심사평가원 의료기관별상세정보서비스 API 가이드라인 v2.00
 
 ## 📋 목차
 1. [서비스 개요](#서비스-개요)
-2. [API 인증키 발급](#api-인증키-발급)
-3. [API 명세](#api-명세)
-4. [요청 파라미터](#요청-파라미터)
-5. [응답 데이터 구조](#응답-데이터-구조)
-6. [코드 구현 가이드](#코드-구현-가이드)
-7. [에러 처리](#에러-처리)
-8. [주의사항](#주의사항)
+2. [11개 API 통합 조회](#11개-api-통합-조회)
+3. [API 인증키 발급](#api-인증키-발급)
+4. [API 명세](#api-명세)
+5. [요청 파라미터](#요청-파라미터)
+6. [응답 데이터 구조](#응답-데이터-구조)
+7. [코드 구현 가이드](#코드-구현-가이드)
+8. [에러 처리](#에러-처리)
+9. [주의사항](#주의사항)
 
 ---
 
@@ -39,10 +40,53 @@
 - **Operation**: `/getDtlInfo` (상세정보 조회)
 
 > [!IMPORTANT]
+> **11개 API 통합 조회 권장**
+> 
+> v2.00 스크립트는 11개 모든 정보 카테고리를 통합 조회합니다. 단일 API만 호출하는 것보다 병원의 전체 정보를 한 번에 수집할 수 있어 효율적입니다.
+
+> [!IMPORTANT]
 > **암호화된 요양기호 사용**
 > 
 > 요양기호는 1:1로 매칭한 암호화된 요양기호로 제공되며, 별도의 복호화 방법 또는 요양기호는 제공하지 않습니다.
 > 암호화된 요양기호는 건강보험심사평가원 '병원정보서비스' Open API > 병원기본목록에서 확인 가능합니다.
+
+---
+
+## 11개 API 통합 조회
+
+### 제공되는 11개 API 목록
+
+| 접두사 | Operation | 정보 카테고리 | 설명 |
+|--------|-----------|--------------|------|
+| `eqp` | `getEqpInfo2.7` | 시설정보 | 병상 수 등 시설 현황 |
+| `dtl` | `getDtlInfo2.7` | 세부정보 | 병원명, 주소, 전화번호 등 기본 정보 |
+| `dgsbjt` | `getDgsbjtInfo2.7` | 진료과목정보 | 개설된 진료과목 |
+| `trnsprt` | `getTrnsprtInfo2.7` | 교통정보 | 주변 교통수단 |
+| `medoft` | `getMedOftInfo2.7` | 의료장비정보 | 보유 의료 장비 현황 |
+| `foepaddc` | `getFoepAddcInfo2.7` | 식대가산정보 | 입원 환자 식사 제공 가산 |
+| `nursiggrd` | `getNursigGrdInfo2.7` | 간호등급정보 | 간호 등급 |
+| `spcldiag` | `getSpclDiagInfo2.7` | 특수진료정보 | 전문 진료 가능 분야 |
+| `spclhosp` | `getSpclHospAsgFldList2.7` | 전문병원지정분야 | 보건복지부 지정 전문병원 분야 |
+| `spcsbtj` | `getSpcSbtjTsdrInfo2.7` | 전문과목별전문의수 | 진료 과목별 전문의 인원 수 |
+| `etchst` | `getEtcHstInfo2.7` | 기타인력수정보 | 약사, 물리치료사 등 의료 인력 현황 |
+
+### 통합 조회 전략
+
+#### 1. 순차 호출 방식
+- 단일 병원에 대해 11개 API를 순차적으로 호출
+- 각 API 호출 간 0.1초 간격 유지 (서버 부하 방지)
+- 개별 API 실패 시에도 다른 API는 계속 진행
+
+#### 2. 데이터 통합 방식
+- **접두사 기반 평탄화**: 각 API 응답에 고유 접두사 추가
+- **예시**: `dtl_yadmNm`, `eqp_hospBdCnt`, `dgsbjt_dgsbjtCdNm`
+- **충돌 방지**: 서로 다른 API에서 동일한 필드명이 있어도 접두사로 구분
+- **중첩 구조 처리**: 중첩된 딕셔너리는 재귀적으로 평탄화
+- **리스트 처리**: 리스트는 JSON 문자열로 변환하여 저장
+
+#### 3. 출력 형식
+- **CSV 파일**: 모든 API 응답을 단일 행으로 통합
+- **메타데이터**: 자동 생성되는 마크다운 파일로 데이터 품질 분석
 
 ---
 
@@ -177,57 +221,98 @@ else:
     print(f"HTTP 오류: {response.status_code}")
 ```
 
-#### 여러 병원 상세정보 조회 (Excel 입력)
+#### 11개 API 통합 조회 (v2.00)
 ```python
 import requests
 import pandas as pd
 from typing import List, Dict
+import time
 
-def get_hospital_detail(service_key: str, ykiho: str) -> Dict:
-    """단일 병원 상세정보 조회"""
-    BASE_URL = "http://apis.data.go.kr/B551182/MadmDtlInfoService2.7/getDtlInfo"
+# 11개 API 엔드포인트 설정
+API_ENDPOINTS = {
+    'eqp': {'operation': 'getEqpInfo2.7', 'name': '시설정보'},
+    'dtl': {'operation': 'getDtlInfo2.7', 'name': '세부정보'},
+    'dgsbjt': {'operation': 'getDgsbjtInfo2.7', 'name': '진료과목정보'},
+    'trnsprt': {'operation': 'getTrnsprtInfo2.7', 'name': '교통정보'},
+    'medoft': {'operation': 'getMedOftInfo2.7', 'name': '의료장비정보'},
+    'foepaddc': {'operation': 'getFoepAddcInfo2.7', 'name': '식대가산정보'},
+    'nursiggrd': {'operation': 'getNursigGrdInfo2.7', 'name': '간호등급정보'},
+    'spcldiag': {'operation': 'getSpclDiagInfo2.7', 'name': '특수진료정보'},
+    'spclhosp': {'operation': 'getSpclHospAsgFldList2.7', 'name': '전문병원지정분야'},
+    'spcsbtj': {'operation': 'getSpcSbtjTsdrInfo2.7', 'name': '전문과목별전문의수'},
+    'etchst': {'operation': 'getEtcHstInfo2.7', 'name': '기타인력수정보'}
+}
+
+def flatten_dict_with_prefix(data: Dict, prefix: str) -> Dict:
+    """딕셔너리 평탄화 및 접두사 추가"""
+    items = []
+    for k, v in data.items():
+        new_key = f"{prefix}_{k}"
+        if isinstance(v, dict):
+            items.extend(flatten_dict_with_prefix(v, prefix).items())
+        elif isinstance(v, list):
+            items.append((new_key, json.dumps(v, ensure_ascii=False)))
+        else:
+            items.append((new_key, v))
+    return dict(items)
+
+def get_hospital_all_info(service_key: str, ykiho: str) -> Dict:
+    """단일 병원의 모든 정보 조회 (11개 API)"""
+    BASE_URL = "http://apis.data.go.kr/B551182/MadmDtlInfoService2.7"
+    result = {'원본_기관코드': ykiho}
     
-    params = {
-        'ServiceKey': service_key,
-        'ykiho': ykiho,
-        '_type': 'json'
-    }
+    for prefix, endpoint_info in API_ENDPOINTS.items():
+        operation = endpoint_info['operation']
+        api_url = f"{BASE_URL}/{operation}"
+        
+        params = {
+            'ServiceKey': service_key,
+            'ykiho': ykiho,
+            '_type': 'json'
+        }
+        
+        try:
+            response = requests.get(api_url, params=params, timeout=30)
+            response.raise_for_status()
+            
+            data = response.json()
+            header = data['response']['header']
+            
+            if header['resultCode'] == '00':
+                body = data['response']['body']
+                items = body.get('items', {}).get('item', {})
+                
+                if items and isinstance(items, dict):
+                    # 접두사 추가하여 평탄화
+                    flattened = flatten_dict_with_prefix(items, prefix)
+                    result.update(flattened)
+                    print(f"  [{prefix}] {endpoint_info['name']}: 성공")
+            
+        except Exception as e:
+            print(f"  [{prefix}] {endpoint_info['name']}: 오류 - {e}")
+        
+        time.sleep(0.1)  # API 호출 간격
     
-    response = requests.get(BASE_URL, params=params, timeout=30)
-    response.raise_for_status()
-    
-    data = response.json()
-    header = data['response']['header']
-    
-    if header['resultCode'] != '00':
-        raise Exception(f"API Error: {header['resultMsg']}")
-    
-    return data['response']['body'].get('items', {}).get('item', {})
+    return result
 
 def main():
     SERVICE_KEY = "발급받은_인증키"
     
-    # Excel 파일에서 병원 목록 읽기
-    df = pd.read_excel('병원목록.xlsx')
+    # CSV 파일에서 병원 목록 읽기
+    df = pd.read_csv('병원목록.csv', encoding='utf-8-sig')
     
-    details = []
+    all_results = []
     for idx, row in df.iterrows():
-        ykiho = row['ykiho']  # 암호화된 요양기호 컬럼
+        ykiho = row['ykiho']
+        print(f"[{idx+1}/{len(df)}] {row.get('병원명', '')}")
         
-        try:
-            detail = get_hospital_detail(SERVICE_KEY, ykiho)
-            details.append(detail)
-            print(f"[{idx+1}/{len(df)}] {detail.get('yadmNm')} 조회 완료")
-        except Exception as e:
-            print(f"[{idx+1}/{len(df)}] 오류: {e}")
-        
-        # API 호출 간격
-        time.sleep(0.1)
+        hospital_info = get_hospital_all_info(SERVICE_KEY, ykiho)
+        all_results.append(hospital_info)
     
     # 결과 저장
-    result_df = pd.DataFrame(details)
-    result_df.to_excel('병원상세정보.xlsx', index=False)
-    print(f"총 {len(details)}건 저장 완료")
+    result_df = pd.DataFrame(all_results)
+    result_df.to_csv('병원전체정보.csv', index=False, encoding='utf-8-sig')
+    print(f"총 {len(all_results)}건 저장 완료")
 
 if __name__ == "__main__":
     main()
@@ -359,6 +444,7 @@ else:
 ---
 
 ## 버전 정보
-- **가이드 버전**: 1.0
-- **최종 수정일**: 2026-01-15
+- **가이드 버전**: 2.0
+- **최종 수정일**: 2026-01-16
 - **작성 기준**: 공공데이터포털 API 명세
+- **주요 변경**: 11개 API 통합 조회 방식 추가

@@ -405,10 +405,12 @@ def get_all_hospital_details(
                 # 원본 데이터와 병합
                 for item in item_data:
                     if isinstance(item, dict):
-                        # 원본 행의 데이터 추가
+                        # 원본 행의 데이터 추가 (한글/영문 컬럼명 모두 지원)
                         item['원본_기관코드'] = ykiho
-                        item['원본_병원명'] = row.get('병원명', '')
-                        item['원본_주소'] = row.get('주소', '')
+                        # 병원명: 한글 컬럼명 우선, 없으면 영문 컬럼명 사용
+                        item['원본_병원명'] = row.get('병원명', row.get('yadmNm', ''))
+                        # 주소: 한글 컬럼명 우선, 없으면 영문 컬럼명 사용
+                        item['원본_주소'] = row.get('주소', row.get('addr', ''))
                         all_items.append(item)
                 
                 success_count += 1

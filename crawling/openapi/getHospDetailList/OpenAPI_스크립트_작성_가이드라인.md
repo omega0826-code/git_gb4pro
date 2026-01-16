@@ -17,7 +17,8 @@
 ### 적용 대상
 - 공공데이터포털 OpenAPI를 활용한 데이터 수집 스크립트
 - REST API 기반 대량 데이터 다운로드 스크립트
-- Excel 입출력을 포함한 데이터 처리 스크립트
+- CSV/Excel 입출력을 포함한 데이터 처리 스크립트
+- 다중 API 통합 조회 스크립트
 
 ---
 
@@ -357,6 +358,150 @@ def save_to_excel_safe(data: List[Dict], filename: str, column_order: List[str] 
 
 ---
 
+### 5. 다중 API 통합 조회 패턴 (v2.00 추가)
+
+**목적**: 여러 API를 순차 호출하여 통합 데이터 수집
+
+**구현 패턴**:
+
+#### API 엔드포인트 설정
+```python
+# 딕셔너리로 관리하여 확장성 확보
+API_ENDPOINTS = {
+    'prefix1': {
+        'operation': 'getInfo1',
+        'name': '정보1',
+        'description': '설명1'
+    },
+    'prefix2': {
+        'operation': 'getInfo2',
+        'name': '정보2',
+        'description': '설명2'
+    },
+    # ... 추가 API
+}
+```
+
+#### 데이터 평탄화 및 접두사 추가
+```python
+def flatten_dict_with_prefix(data: Dict, prefix: str, parent_key: str = '') -> Dict:
+    """중첩된 딕셔너리를 평탄화하고 접두사 추가"""
+    items = []
+    for k, v in data.items():
+        new_key = f"{prefix}_{parent_key}_{k}" if parent_key else f"{prefix}_{k}"
+        
+        if isinstance(v, dict):
+            # 재귀적으로 평탄화
+            items.extend(flatten_dict_with_prefix(v, prefix, k).items())
+        elif isinstance(v, list):
+            # 리스트는 JSON 문자열로 변환
+            items.append((new_key, json.dumps(v, ensure_ascii=False)))
+        else:
+            items.append((new_key, v))
+    
+    return dict(items)
+```
+
+#### 순차 호출 및 통합
+```python
+def get_integrated_info(service_key: str, identifier: str) -> Dict:
+    """여러 API를 순차 호출하여 통합 정보 조회"""
+    result = {'원본_식별자': identifier}
+    success_count = 0
+    
+    for prefix, endpoint_info in API_ENDPOINTS.items():
+        operation = endpoint_info['operation']
+        name = endpoint_info['name']
+        
+        try:
+            # API 호출
+            data = call_single_api(service_key, operation, identifier)
+            
+            if data:
+                # 응답 데이터 평탄화 및 접두사 추가
+                flattened = flatten_dict_with_prefix(data, prefix)
+                result.update(flattened)
+                success_count += 1
+                print(f"  [{prefix}] {name}: 성공 ({len(flattened)}개 필드)")
+            
+        except Exception as e:
+            print(f"  [{prefix}] {name}: 오류 - {e}")
+            continue
+        
+        # API 호출 간격
+        time.sleep(0.1)
+    
+    print(f"  => 총 {success_count}/{len(API_ENDPOINTS)}개 API 성공")
+    return result
+```
+
+**핵심 포인트**:
+- 접두사로 API별 데이터 구분 (예: `api1_field`, `api2_field`)
+- 개별 API 실패 시에도 다른 API는 계속 진행
+- 중첩 구조는 재귀적으로 평탄화
+- 리스트는 JSON 문자열로 변환
+
+---
+
+### 6. 메타데이터 자동 생성 패턴 (v2.00 추가)
+
+**목적**: 수집된 데이터의 품질을 자동으로 분석하고 문서화
+
+**구현 패턴**:
+
+```python
+def generate_metadata_markdown(df: pd.DataFrame, csv_filename: str):
+    """메타데이터 마크다운 파일 생성"""
+    md_filename = csv_filename.replace('.csv', '.md')
+    
+    with open(md_filename, 'w', encoding='utf-8') as f:
+        # 제목
+        f.write(f"# 데이터 분석 보고서\n\n")
+        f.write(f"**생성일시**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
+        f.write(f"**데이터 파일**: `{Path(csv_filename).name}`\n\n")
+        
+        # 기본 정보
+        f.write("## 📊 데이터 개요\n\n")
+        f.write(f"- **총 레코드 수**: {len(df):,}건\n")
+        f.write(f"- **총 컬럼 수**: {len(df.columns)}개\n\n")
+        
+        # API별 컬럼 수 분석 (접두사 기반)
+        f.write("## 📋 API별 수집 정보\n\n")
+        api_prefixes = ['api1', 'api2', 'api3']  # 실제 접두사 목록
+        
+        f.write("| API | 컬럼 수 |\n")
+        f.write("|-----|--------|\n")
+        for prefix in api_prefixes:
+            cols = [col for col in df.columns if col.startswith(f"{prefix}_")]
+            f.write(f"| `{prefix}` | {len(cols)}개 |\n")
+        f.write("\n")
+        
+        # 결측치 분석
+        f.write("## 🔍 주요 컬럼 결측치 분석\n\n")
+        important_cols = df.columns[:10]  # 주요 컬럼 선택
+        
+        missing_data = df[important_cols].isnull().sum()
+        missing_pct = (missing_data / len(df) * 100).round(2)
+        missing_df = pd.DataFrame({
+            '컬럼명': missing_data.index,
+            '결측치 수': missing_data.values,
+            '결측치 비율(%)': missing_pct.values
+        })
+        
+        f.write(missing_df.to_markdown(index=False))
+        f.write("\n\n")
+    
+    print(f"[메타데이터 생성] {md_filename}")
+```
+
+**핵심 포인트**:
+- CSV 저장 시 자동으로 메타데이터 생성
+- 데이터 품질 즉시 확인 가능
+- API별 응답률 파악
+- 결측치 패턴 분석
+
+---
+
 ## 코드 주석 작성 가이드
 
 ### 1. 파일 헤더 주석
@@ -559,6 +704,7 @@ python script.py
 ---
 
 ## 버전 정보
-- **문서 버전**: 1.0
-- **최종 수정일**: 2026-01-15
+- **문서 버전**: 2.0
+- **최종 수정일**: 2026-01-16
 - **작성자**: OpenAPI 스크립트 개발팀
+- **주요 변경**: 다중 API 통합 조회 패턴, 메타데이터 자동 생성 패턴 추가

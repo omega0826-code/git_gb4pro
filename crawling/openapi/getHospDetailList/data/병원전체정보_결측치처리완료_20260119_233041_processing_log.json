@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-01-19 23:30:42",
+  "input_file": "d:\\git_gb4pro\\crawling\\openapi\\getHospDetailList\\data\\병원전체정보_20260116_212603.csv",
+  "output_file": "d:\\git_gb4pro\\crawling\\openapi\\getHospDetailList\\data\\병원전체정보_결측치처리완료_20260119_233041.csv",
+  "before": {
+    "total_rows": 1153,
+    "total_columns": 93,
+    "total_missing": 59988
+  },
+  "after": {
+    "total_rows": 1153,
+    "total_columns": 93,
+    "total_missing": 50442
+  },
+  "changes": {
+    "rows_removed": 0,
+    "missing_reduced": 9546,
+    "zero_filled": 

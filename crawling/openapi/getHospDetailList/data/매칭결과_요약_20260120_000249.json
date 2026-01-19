@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-01-20 00:02:49",
+  "file1": {
+    "path": "d:\\git_gb4pro\\crawling\\openapi\\getHospDetailList\\data\\병원전체정보_결측치처리완료_20260119_233319.csv",
+    "total_rows": 1153,
+    "total_columns": 95
+  },
+  "file2": {
+    "path": "d:\\git_gb4pro\\crawling\\gangnam\\data\\archive\\gangnam_hospitals_detail_RESUME_20260105_041227.csv",
+    "total_rows": 1103,
+    "total_columns": 13
+  },
+  "matching_result": {
+    "matched": 0,
+    "unmatched": 1153,
+    "match_rate": 0.0,
+    "additional_name_only_matches": 188
+  },
+  "merged_data": {
+    "total_rows": 1153,
+    "total_columns": 107,
+    "file1_only_columns": 107,
+    "file2_only_columns": 0,
+    "common_columns": 0
+  }
+}

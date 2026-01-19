@@ -1,0 +1,467 @@
+{
+  "원본_기관코드": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "원본_병원명": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "원본_주소": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_addr": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_aduChldSprmCnt": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_anvirTrrmSbdCnt": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_chldSprmCnt": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_clCd": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_clCdNm": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_emdongNm": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_emymCnt": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_estbDd": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_hghrSickbdCnt": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_hospUrl": {
+    "total": 1153,
+    "missing": 862,
+    "pct": 74.76
+  },
+  "eqp_isnrSbdCnt": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_nbySprmCnt": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_orgTyCd": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_orgTyCdNm": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_partumCnt": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_permSbdCnt": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_postNo": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_psydeptClsGnlSbdCnt": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_psydeptClsHigSbdCnt": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_psydeptOpenGnlSbdCnt": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_psydeptOpenHigSbdCnt": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_ptrmCnt": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_sgguCd": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_sgguCdNm": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_sidoCd": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_sidoCdNm": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_soprmCnt": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_stdSickbdCnt": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "eqp_telno": {
+    "total": 1153,
+    "missing": 35,
+    "pct": 3.04
+  },
+  "eqp_yadmNm": {
+    "total": 1153,
+    "missing": 0,
+    "pct": 0.0
+  },
+  "dgsbjt_cdiagDrCnt": {
+    "total": 1153,
+    "missing": 1,
+    "pct": 0.09
+  },
+  "dgsbjt_dgsbjtCd": {
+    "total": 1153,
+    "missing": 1,
+    "pct": 0.09
+  },
+  "dgsbjt_dgsbjtCdNm": {
+    "total": 1153,
+    "missing": 1,
+    "pct": 0.09
+  },
+  "dgsbjt_dgsbjtPrSdrCnt": {
+    "total": 1153,
+    "missing": 1,
+    "pct": 0.09
+  },
+  "medoft_oftCd": {
+    "total": 1153,
+    "missing": 855,
+    "pct": 74.15
+  },
+  "medoft_oftCdNm": {
+    "total": 1153,
+    "missing": 855,
+    "pct": 74.15
+  },
+  "medoft_oftCnt": {
+    "total": 1153,
+    "missing": 855,
+    "pct": 74.15
+  },
+  "foepaddc_calcNopCnt": {
+    "total": 1153,
+    "missing": 1136,
+    "pct": 98.53
+  },
+  "foepaddc_gnmAddcYn": {
+    "total": 1153,
+    "missing": 1136,
+    "pct": 98.53
+  },
+  "foepaddc_tyCd": {
+    "total": 1153,
+    "missing": 1136,
+    "pct": 98.53
+  },
+  "foepaddc_tyCdNm": {
+    "total": 1153,
+    "missing": 1136,
+    "pct": 98.53
+  },
+  "nursiggrd_careGrd": {
+    "total": 1153,
+    "missing": 1138,
+    "pct": 98.7
+  },
+  "nursiggrd_tyCd": {
+    "total": 1153,
+    "missing": 1138,
+    "pct": 98.7
+  },
+  "nursiggrd_tyCdNm": {
+    "total": 1153,
+    "missing": 1138,
+    "pct": 98.7
+  },
+  "spcldiag_srchCd": {
+    "total": 1153,
+    "missing": 1013,
+    "pct": 87.86
+  },
+  "spcldiag_srchCdNm": {
+    "total": 1153,
+    "missing": 1013,
+    "pct": 87.86
+  },
+  "etchst_dtlGnlNopCdNm": {
+    "total": 1153,
+    "missing": 1106,
+    "pct": 95.92
+  },
+  "etchst_gnlNopCnt": {
+    "total": 1153,
+    "missing": 1106,
+    "pct": 95.92
+  },
+  "etchst_gnlNopDtlCd": {
+    "total": 1153,
+    "missing": 1106,
+    "pct": 95.92
+  },
+  "etchst_yadmNm": {
+    "total": 1153,
+    "missing": 1106,
+    "pct": 95.92
+  },
+  "etchst_ykiho": {
+    "total": 1153,
+    "missing": 1106,
+    "pct": 95.92
+  },
+  "dtl_emyDayTelNo1": {
+    "total": 1153,
+    "missing": 1152,
+    "pct": 99.91
+  },
+  "dtl_emyDayTelNo2": {
+    "total": 1153,
+    "missing": 1152,
+    "pct": 99.91
+  },
+  "dtl_emyDayYn": {
+    "total": 1153,
+    "missing": 1033,
+    "pct": 89.59
+  },
+  "dtl_emyNgtTelNo1": {
+    "total": 1153,
+    "missing": 1152,
+    "pct": 99.91
+  },
+  "dtl_emyNgtTelNo2": {
+    "total": 1153,
+    "missing": 1152,
+    "pct": 99.91
+  },
+  "dtl_emyNgtYn": {
+    "total": 1153,
+    "missing": 1033,
+    "pct": 89.59
+  },
+  "dtl_lunchWeek": {
+    "total": 1153,
+    "missing": 1053,
+    "pct": 91.33
+  },
+  "dtl_noTrmtHoli": {
+    "total": 1153,
+    "missing": 1071,
+    "pct": 92.89
+  },
+  "dtl_noTrmtSun": {
+    "total": 1153,
+    "missing": 1065,
+    "pct": 92.37
+  },
+  "dtl_parkEtc": {
+    "total": 1153,
+    "missing": 1085,
+    "pct": 94.1
+  },
+  "dtl_parkQty": {
+    "total": 1153,
+    "missing": 1052,
+    "pct": 91.24
+  },
+  "dtl_parkXpnsYn": {
+    "total": 1153,
+    "missing": 1052,
+    "pct": 91.24
+  },
+  "dtl_plcDir": {
+    "total": 1153,
+    "missing": 1096,
+    "pct": 95.06
+  },
+  "dtl_plcDist": {
+    "total": 1153,
+    "missing": 1100,
+    "pct": 95.4
+  },
+  "dtl_plcNm": {
+    "total": 1153,
+    "missing": 1074,
+    "pct": 93.15
+  },
+  "dtl_rcvSat": {
+    "total": 1153,
+    "missing": 1089,
+    "pct": 94.45
+  },
+  "dtl_rcvWeek": {
+    "total": 1153,
+    "missing": 1084,
+    "pct": 94.02
+  },
+  "dtl_trmtFriEnd": {
+    "total": 1153,
+    "missing": 1042,
+    "pct": 90.37
+  },
+  "dtl_trmtFriStart": {
+    "total": 1153,
+    "missing": 1042,
+    "pct": 90.37
+  },
+  "dtl_trmtMonEnd": {
+    "total": 1153,
+    "missing": 1044,
+    "pct": 90.55
+  },
+  "dtl_trmtMonStart": {
+    "total": 1153,
+    "missing": 1044,
+    "pct": 90.55
+  },
+  "dtl_trmtSatEnd": {
+    "total": 1153,
+    "missing": 1048,
+    "pct": 90.89
+  },
+  "dtl_trmtSatStart": {
+    "total": 1153,
+    "missing": 1048,
+    "pct": 90.89
+  },
+  "dtl_trmtThuEnd": {
+    "total": 1153,
+    "missing": 1047,
+    "pct": 90.81
+  },
+  "dtl_trmtThuStart": {
+    "total": 1153,
+    "missing": 1047,
+    "pct": 90.81
+  },
+  "dtl_trmtTueEnd": {
+    "total": 1153,
+    "missing": 1044,
+    "pct": 90.55
+  },
+  "dtl_trmtTueStart": {
+    "total": 1153,
+    "missing": 1044,
+    "pct": 90.55
+  },
+  "dtl_trmtWedEnd": {
+    "total": 1153,
+    "missing": 1051,
+    "pct": 91.15
+  },
+  "dtl_trmtWedStart": {
+    "total": 1153,
+    "missing": 1051,
+    "pct": 91.15
+  },
+  "trnsprt_arivPlc": {
+    "total": 1153,
+    "missing": 1084,
+    "pct": 94.02
+  },
+  "trnsprt_dir": {
+    "total": 1153,
+    "missing": 1092,
+    "pct": 94.71
+  },
+  "trnsprt_dist": {
+    "total": 1153,
+    "missing": 1105,
+    "pct": 95.84
+  },
+  "trnsprt_lineNo": {
+    "total": 1153,
+    "missing": 1082,
+    "pct": 93.84
+  },
+  "trnsprt_rmk": {
+    "total": 1153,
+    "missing": 1140,
+    "pct": 98.87
+  },
+  "trnsprt_trafNm": {
+    "total": 1153,
+    "missing": 1079,
+    "pct": 93.58
+  },
+  "dtl_lunchSat": {
+    "total": 1153,
+    "missing": 1101,
+    "pct": 95.49
+  },
+  "dtl_trmtSunEnd": {
+    "total": 1153,
+    "missing": 1139,
+    "pct": 98.79
+  },
+  "dtl_trmtSunStart": {
+    "total": 1153,
+    "missing": 1139,
+    "pct": 98.79
+  }
+}

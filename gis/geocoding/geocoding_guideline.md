@@ -1,7 +1,7 @@
 # 파이썬 기반 주소 전처리 및 지오코딩(Geocoding) 가이드라인
 
-> **문서 버전**: V1.0.0
-> **최종 업데이트**: 2026-01-24
+> **문서 버전**: V1.0.1
+> **최종 업데이트**: 2026-01-25
 > **작성자**: EDA Team
 
 ---
@@ -50,7 +50,7 @@ def clean_address(addr):
     if ',' in addr:
         addr = addr.split(',')[0]
         
-    # 4. 양끛 공백 및 이중 공백 제거
+    # 4. 양끝 공백 및 이중 공백 제거
     addr = " ".join(addr.split())
     
     return addr
@@ -61,37 +61,79 @@ def clean_address(addr):
 ### 4.1 기본 코드
 ```python
 import requests
+import os
+from dotenv import load_dotenv
 
-def geocode_address(address, api_key):
+# .env 파일 활성화 (환경 변수 로드)
+load_dotenv()
+
+def geocode_address(address):
     """
     주소를 입력받아 위도(y), 경도(x)를 반환하는 함수
     :param address: 정제된 주소 문자열
-    :param api_key: Kakao REST API Key
     :return: (lat, lon) 튜플 or (None, None)
     """
+    # 환경 변수에서 API 키 가져오기
+    api_key = os.getenv("KAKAO_API_KEY")
+    
+    if not api_key:
+        raise ValueError("API Key가 설정되지 않았습니다. .env 파일을 확인해주세요.")
+
     url = 'https://dapi.kakao.com/v2/local/search/address.json'
     headers = {"Authorization": f"KakaoAK {api_key}"}
     params = {"query": address}
     
     try:
         resp = requests.get(url, headers=headers, params=params, timeout=5)
-        if resp.status_code == 200:
-            result = resp.json()
-            if result['documents']:
-                # 첫 번째 검색 결과가 가장 정확도 높음
-                doc = result['documents'][0]
-                x = doc['x'] # 경도 (Longitude)
-                y = doc['y'] # 위도 (Latitude)
-                return float(y), float(x)
+        resp.raise_for_status() # 4xx, 5xx 에러 체크
+        
+        result = resp.json()
+        if result['documents']:
+            # 첫 번째 검색 결과가 가장 정확도 높음
+            doc = result['documents'][0]
+            x = doc['x'] # 경도 (Longitude)
+            y = doc['y'] # 위도 (Latitude)
+            return float(y), float(x)
+            
+    except requests.exceptions.RequestException as e:
+        print(f"Network Error converting '{address}': {e}")
     except Exception as e:
         print(f"Error converting '{address}': {e}")
         
     return None, None
-```
 
 ### 4.2 대량 데이터 처리 팁
 *   `time.sleep()`을 사용하여 API 요청 속도를 조절(Rate Limiting)하십시오.
 *   변환 실패(None)한 건은 별도 파일로 저장하여 수동 확인하거나 정제 규칙을 개선하십시오.
+
+### 4.3 사전 테스트 로직 (Pre-run Validation)
+대량의 데이터를 처리하기 전, 시스템 설정과 API 유효성을 검토하기 위해 상위 3개 정도의 샘플을 테스트하는 단계를 반드시 포함하십시오.
+
+```python
+def validate_geocoding_setup(df, sample_size=3):
+    """
+    본격적인 실행 전 샘플 데이터를 통해 API 호출 유효성을 검증합니다.
+    """
+    print(f"--- Pre-run Validation: Testing {sample_size} samples ---")
+    samples = df.head(sample_size)
+    success_count = 0
+    
+    for idx, row in samples.iterrows():
+        lat, lon = geocode_address(row['geo_address'])
+        if lat and lon:
+            success_count += 1
+            print(f"Success: {row['geo_address']} -> ({lat}, {lon})")
+        else:
+            print(f"Fail: {row['geo_address']}")
+            
+    if success_count == 0:
+        print("\n[ERROR] 사전 테스트 결과가 0건입니다. API 키 또는 네트워크 상태를 확인하십시오.")
+        print("스크립트 실행을 중단합니다.")
+        return False
+        
+    print(f"--- Validation Complete: {success_count}/{sample_size} success --- \n")
+    return True
+```
 
 ## 5. 좌표 변환 실패 시 대응 (Fallback Strategy)
 1.  **지번 <-> 도로명 교차 검색**: 도로명으로 실패 시 지번 주소로 재시도.
@@ -104,8 +146,8 @@ def geocode_address(address, api_key):
 ## 7. 버전 관리 (Revision History)
 문서 수정 시 아래 내역을 반드시 기입해 주십시오.
 
-| 버전(Ver) | 날짜(Date) | 수정자(Author) | 주요 변경 내용(Change Log) |
-|:---:|:---:|:---:|:---|
+| **V1.0.2** | 2026-01-25 | AI Assistant | 사전 테스트 로직(Pre-run Validation) 섹션 추가 |
+| **V1.0.1** | 2026-01-25 | AI Assistant | 오타 수정 및 에러 핸들링 로직 강화 |
 | **V1.0.0** | 2026-01-24 | Initial | 가이드라인 문서 최초 작성 (전처리, Kakao API) |
 | | | | |
 | | | | |

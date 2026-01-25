@@ -1,0 +1,8 @@
+2026-01-25 16:17:19,001 - INFO - Processing file: 병원전체정보_20260116_212603_geocoded_20260125_155112.csv
+2026-01-25 16:17:19,030 - INFO - Data loaded. Rows: 1153
+2026-01-25 16:17:19,030 - INFO - Test mode enabled. Processing only 5 rows.
+2026-01-25 16:17:19,032 - INFO - Starting address preprocessing...
+2026-01-25 16:17:19,034 - INFO - Starting geocoding...
+2026-01-25 16:17:19,034 - INFO - Processing 0/5
+2026-01-25 16:17:20,488 - INFO - Geocoding completed. Success: 5/5 (100.00%)
+2026-01-25 16:17:20,501 - INFO - Saved result to d:\git_gb4pro\gis\geocoding\hospital\data\output\병원전체정보_20260116_212603_geocoded_20260125_155112_geocoded_20260125_161720.csv

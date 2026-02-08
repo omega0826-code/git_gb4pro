@@ -1,0 +1,41 @@
+================================================================================
+강남구 피부과 비교 분석 시작 (20260206_2139)
+================================================================================
+
+[Phase 1] 데이터 로딩 중: d:\git_gb4pro\output\reports\전국 병의원 및 약국 현황\EDA\EDA_Dermatology_20260205_0424\rawdata\피부과_분석대상_20260205_0424.csv
+전체 데이터 로드: 4,853개
+강남언니 데이터 로딩 및 병합 중: d:\git_gb4pro\output\reports\전국 병의원 및 약국 현황\merged\HIRA_강남언니_결합_최종.csv
+병합 후 강남언니 등록 태그 확인: {False: 4455, True: 398}
+강남구: 1,150개, 서초구: 451개, 송파구: 287개
+
+[Layer 1] 기관 규모 비교
+  시각화 저장: 01_institution_scale.png
+
+[Layer 1-2] 종별 구성비 비교
+  시각화 저장: 02_type_composition.png
+
+[Layer 2] 전문의 인력 비교
+  시각화 저장: 03_specialist_comparison.png
+
+[Layer 3] 병상 시설 비교
+  시각화 저장: 04_bed_comparison.png
+
+[Layer 4] 설립연도 및 신규개원 비교
+  시각화 저장: 05_establishment_trend.png
+  시각화 저장: 06_new_clinic_ratio.png
+
+[Layer 5] 병행 진료과목 비교
+  시각화 저장: 07_department_heatmap.png
+
+[Layer 8] 강남언니 플랫폼 입점 분석 비교
+  시각화 저장: 08_gangnam_unni_rate.png
+
+[Phase 5] Raw Data 저장 중...
+  6개 CSV 저장 완료
+
+[Phase 6] HTML 리포트 생성 중...
+
+[성공] 비교 분석이 완료되었습니다.
+결과 폴더: d:\git_gb4pro\output\reports\전국 병의원 및 약국 현황\EDA\EDA_Dermatology_Comparison_20260206_2139
+HTML 리포트: d:\git_gb4pro\output\reports\전국 병의원 및 약국 현황\EDA\EDA_Dermatology_Comparison_20260206_2139\EDA_비교분석리포트_강남구피부과_20260206_2139.html
+================================================================================

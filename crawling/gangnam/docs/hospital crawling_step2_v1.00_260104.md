@@ -83,10 +83,10 @@
 
 
     c. Payload
-        {api_key: "6d6736a26b0b1ecd2b7d8a38c6dbf388", events: [,…], options: {},…}
+        {api_key: "[MASKED]", events: [,…], options: {},…}
         api_key
         : 
-        "6d6736a26b0b1ecd2b7d8a38c6dbf388"
+        "[MASKED]"
         client_upload_time
         : 
         "2026-01-04T15:06:48.447Z"

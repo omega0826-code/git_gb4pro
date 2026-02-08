@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>의원급 피부과 최적 입지 분석 - 완전 보고서</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Malgun Gothic', 'Noto Sans KR', sans-serif;
+            line-height: 1.8;
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 60px 40px;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        .toc {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .toc h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .toc-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #4ECDC4;
+        }
+
+        .toc-item h3 {
+            font-size: 0.9em;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .toc-item ul {
+            font-size: 0.8em;
+            color: #666;
+            list-style: none;
+        }
+
+        .toc-item ul li {
+            margin: 3px 0;
+        }
+
+        .toc-item.a {
+            border-color: #FF6B6B;
+        }
+
+        .toc-item.b {
+            border-color: #FFE66D;
+        }
+
+        .toc-item.c {
+            border-color: #4ECDC4;
+        }
+
+        .toc-item.d {
+            border-color: #45B7D1;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h2 {
+            color: #2c3e50;
+            border-left: 5px solid #4ECDC4;
+            padding-left: 15px;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+        }
+
+        .card.section-a h2 {
+            border-color: #FF6B6B;
+        }
+
+        .card.section-b h2 {
+            border-color: #FFE66D;
+        }
+
+        .card.section-c h2 {
+            border-color: #4ECDC4;
+        }
+
+        .card.section-d h2 {
+            border-color: #45B7D1;
+        }
+
+        .card.section-e h2 {
+            border-color: #9B59B6;
+        }
+
+        /* Summary */
+        .summary-box {
+            background: linear-gradient(135deg, #fff5f5, #f0fff4);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .top3-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .top3-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            border: 3px solid #eee;
+        }
+
+        .top3-card.gold {
+            border-color: #FFD700;
+            background: linear-gradient(135deg, #fff9e6, white);
+        }
+
+        .top3-card.silver {
+            border-color: #C0C0C0;
+        }
+
+        .top3-card.bronze {
+            border-color: #CD7F32;
+        }
+
+        .top3-card .rank {
+            font-size: 2em;
+        }
+
+        .top3-card .name {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+
+        .top3-card .score {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #4ECDC4;
+        }
+
+        /* Charts */
+        .chart-section {
+            margin: 25px 0;
+        }
+
+        .chart-section h3 {
+            font-size: 1.1em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 3px solid #ccc;
+        }
+
+        .chart-section img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .chart-grid .chart-item {
+            text-align: center;
+        }
+
+        .chart-grid .chart-item img {
+            width: 100%;
+        }
+
+        .chart-caption {
+            text-align: center;
+            margin-top: 10px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #4ECDC4;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        tr:hover {
+            background: #f0f0f0;
+        }
+
+        tr.highlight {
+            background: #fff3f3 !important;
+            font-weight: bold;
+        }
+
+        /* Insights */
+        .insight-box {
+            background: #e8f8f5;
+            border-left: 5px solid #4ECDC4;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .insight-box h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .insight-box ul {
+            margin-left: 20px;
+        }
+
+        .insight-box li {
+            margin-bottom: 8px;
+        }
+
+        /* Methodology */
+        .methodology {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .weight-table th {
+            background: #9B59B6;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 1024px) {
+            .toc-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .top3-grid,
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>🏥 의원급 피부과 최적 입지 분석</h1>
+            <p>강남 9개 핵심 상권 종합 평가 완전 보고서 (V5.30)</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">분석 기간: 2022년 ~ 2024년 | 작성일: 2026-02-04</p>
+        </header>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h2>📋 보고서 목차</h2>
+            <div class="toc-grid">
+                <div class="toc-item a">
+                    <h3>A. 경쟁 환경 분석 (20%)</h3>
+                    <ul>
+                        <li>A1. 경쟁 점포 수</li>
+                    </ul>
+                </div>
+                <div class="toc-item b">
+                    <h3>B. 고객 수요 분석 (40%)</h3>
+                    <ul>
+                        <li>B1. 타겟 고객 매출</li>
+                        <li>B2. 성별 매출 비교</li>
+                        <li>B3. 연령대별 매출</li>
+                    </ul>
+                </div>
+                <div class="toc-item c">
+                    <h3>C. 인구 유동 분석 (20%)</h3>
+                    <ul>
+                        <li>C1. 유동인구 규모</li>
+                        <li>C2. 타겟 유동인구</li>
+                        <li>C3. 직장인구</li>
+                        <li>C4. 상주인구</li>
+                    </ul>
+                </div>
+                <div class="toc-item d">
+                    <h3>D. 입지 조건 분석 (20%)</h3>
+                    <ul>
+                        <li>D1. 집객시설</li>
+                        <li>D2. 평균 소득</li>
+                        <li>D3. 의료비 지출</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="card">
+            <h2>📌 Executive Summary</h2>
+            <div class="summary-box">
+                <p><strong>분석 목적:</strong> 강남 지역 9개 주요 상권을 대상으로 의원급 피부과 최적 입지 선정</p>
+                <p><strong>분석 방법:</strong> 4차원 가중 평가 (경쟁 20% + 고객 40% + 인구 20% + 입지 20%)</p>
+                <p><strong>세부 지표:</strong> 11개 세부 지표 기반 정밀 분석</p>
+            </div>
+            <div class="top3-grid">
+                <div class="top3-card gold">
+                    <div class="rank">🥇</div>
+                    <div class="name">강남역</div>
+                    <div class="score">75.8점</div>
+                    <p style="color: #666; font-size: 0.9em;">압도적 고객 수요 | 경쟁 극심</p>
+                </div>
+                <div class="top3-card silver">
+                    <div class="rank">🥈</div>
+                    <div class="name">선릉역</div>
+                    <div class="score">45.4점</div>
+                    <p style="color: #666; font-size: 0.9em;">균형 잡힌 지표 | 안정적</p>
+                </div>
+                <div class="top3-card bronze">
+                    <div class="rank">🥉</div>
+                    <div class="name">강남 마이스</div>
+                    <div class="score">39.3점</div>
+                    <p style="color: #666; font-size: 0.9em;">저경쟁 블루오션</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section A: Competition -->
+        <div class="card section-a">
+            <h2>A. 경쟁 환경 분석 (가중치 20%)</h2>
+            <p style="margin-bottom: 20px; color: #666;">상권 내 의원 및 피부과 점포 수를 기준으로 경쟁 강도를 평가합니다. 점포 수가 적을수록 진입 기회가 높습니다.
+            </p>
+            <div class="chart-section">
+                <h3>A1. 상권별 경쟁 강도 (의원/피부과 점포 수)</h3>
+                <img src="charts/A1_경쟁_점포수.png" alt="경쟁 점포 수">
+                <p class="chart-caption">* 빨강: 고경쟁(200개 이상) / 노랑: 중경쟁 / 청록: 저경쟁</p>
+            </div>
+            <div class="insight-box">
+                <h3>💡 핵심 인사이트</h3>
+                <ul>
+                    <li><strong>강남역:</strong> 684개소로 압도적 1위 경쟁 → 차별화 필수</li>
+                    <li><strong>강남 마이스:</strong> 10개소로 저경쟁 블루오션</li>
+                    <li><strong>역삼역 4번:</strong> 3개소로 가장 낮은 경쟁</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section B: Customer -->
+        <div class="card section-b">
+            <h2>B. 고객 수요 분석 (가중치 40%)</h2>
+            <p style="margin-bottom: 20px; color: #666;">피부과의 주 고객층인 20-40대 여성 매출을 중심으로 고객 수요를 평가합니다.</p>
+
+            <div class="chart-section">
+                <h3>B1. 상권별 타겟 고객(20-40대) 매출</h3>
+                <img src="charts/B1_타겟_매출.png" alt="타겟 매출">
+            </div>
+
+            <div class="chart-grid">
+                <div class="chart-item">
+                    <h3>B2. 성별 매출 비교</h3>
+                    <img src="charts/B2_성별_매출.png" alt="성별 매출">
+                </div>
+                <div class="chart-item">
+                    <h3>B3. 연령대별 매출 분포</h3>
+                    <img src="charts/B3_연령대별_매출.png" alt="연령대별 매출">
+                </div>
+            </div>
+
+            <div class="insight-box">
+                <h3>💡 핵심 인사이트</h3>
+                <ul>
+                    <li><strong>강남역:</strong> 타겟 매출 2,764억으로 압도적 1위</li>
+                    <li><strong>여성 매출 비중:</strong> 전 상권에서 여성 매출이 남성의 2~3배 수준</li>
+                    <li><strong>연령대 분포:</strong> 30대 > 40대 > 20대 순으로 매출 비중 높음</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section C: Population -->
+        <div class="card section-c">
+            <h2>C. 인구 유동 분석 (가중치 20%)</h2>
+            <p style="margin-bottom: 20px; color: #666;">유동인구, 직장인구, 상주인구를 종합하여 잠재 고객 규모를 평가합니다. (가중치: 유동 40%, 타겟유동 30%,
+                직장 20%, 상주 10%)</p>
+
+            <div class="chart-grid">
+                <div class="chart-item">
+                    <h3>C1. 유동인구 규모</h3>
+                    <img src="charts/C1_유동인구.png" alt="유동인구">
+                </div>
+                <div class="chart-item">
+                    <h3>C2. 타겟 유동인구 (20-40대)</h3>
+                    <img src="charts/C2_타겟_유동인구.png" alt="타겟 유동인구">
+                </div>
+                <div class="chart-item">
+                    <h3>C3. 직장인구 규모</h3>
+                    <img src="charts/C3_직장인구.png" alt="직장인구">
+                </div>
+                <div class="chart-item">
+                    <h3>C4. 상주인구 규모</h3>
+                    <img src="charts/C4_상주인구.png" alt="상주인구">
+                </div>
+            </div>
+
+            <div class="insight-box">
+                <h3>💡 핵심 인사이트</h3>
+                <ul>
+                    <li><strong>강남역:</strong> 유동인구 815만, 타겟 유동 586만으로 압도적 1위</li>
+                    <li><strong>강남 마이스:</strong> 직장인구 10.2만으로 1위, but 유동인구 11만으로 최하위</li>
+                    <li><strong>양재역:</strong> 상주인구 5,763명으로 상주 중심 상권</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section D: Location -->
+        <div class="card section-d">
+            <h2>D. 입지 조건 분석 (가중치 20%)</h2>
+            <p style="margin-bottom: 20px; color: #666;">집객시설, 소득 수준, 의료비 지출을 종합하여 상권의 인프라와 소비력을 평가합니다. (가중치: 시설 40%, 소득
+                30%, 의료비 30%)</p>
+
+            <div class="chart-section">
+                <h3>D1. 상권별 집객시설 현황</h3>
+                <img src="charts/D1_집객시설.png" alt="집객시설">
+            </div>
+
+            <div class="chart-grid">
+                <div class="chart-item">
+                    <h3>D2. 평균 소득 수준</h3>
+                    <img src="charts/D2_평균소득.png" alt="평균 소득">
+                </div>
+                <div class="chart-item">
+                    <h3>D3. 의료비 지출 현황</h3>
+                    <img src="charts/D3_의료비지출.png" alt="의료비 지출">
+                </div>
+            </div>
+
+            <div class="insight-box">
+                <h3>💡 핵심 인사이트</h3>
+                <ul>
+                    <li><strong>강남역:</strong> 집객시설 389개, 의료비 지출 4.7억으로 인프라 최고</li>
+                    <li><strong>강남 마이스:</strong> 평균 소득 701만원으로 소득 수준 1위</li>
+                    <li><strong>선릉역:</strong> 의료비 지출 4.5억으로 의료 소비 성향 높음</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section E: Summary -->
+        <div class="card section-e">
+            <h2>E. 종합 평가</h2>
+
+            <div class="chart-section">
+                <h3>E1. 강남 9개 상권 종합 평가 순위</h3>
+                <img src="charts/E1_종합점수_순위.png" alt="종합 점수 순위">
+            </div>
+
+            <div class="chart-grid">
+                <div class="chart-item">
+                    <h3>E2. TOP 3 상권 4차원 프로파일</h3>
+                    <img src="charts/E2_레이더_TOP3.png" alt="레이더 차트">
+                </div>
+                <div class="chart-item">
+                    <h3>E3. 세부 지표 히트맵</h3>
+                    <img src="charts/E3_세부지표_히트맵.png" alt="세부 지표 히트맵">
+                </div>
+            </div>
+        </div>
+
+        <!-- Full Data Table -->
+        <div class="card">
+            <h2>📊 전체 상권 종합 평가 데이터</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>순위</th>
+                        <th>상권명</th>
+                        <th>종합점수</th>
+                        <th>경쟁</th>
+                        <th>고객</th>
+                        <th>인구</th>
+                        <th>입지</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="highlight">
+                        <td>1</td>
+                        <td>강남역</td>
+                        <td>75.8</td>
+                        <td>0.00</td>
+                        <td>1.00</td>
+                        <td>0.97</td>
+                        <td>0.82</td>
+                    </tr>
+                    <tr class="highlight">
+                        <td>2</td>
+                        <td>선릉역</td>
+                        <td>45.4</td>
+                        <td>0.65</td>
+                        <td>0.25</td>
+                        <td>0.62</td>
+                        <td>0.49</td>
+                    </tr>
+                    <tr class="highlight">
+                        <td>3</td>
+                        <td>강남 마이스</td>
+                        <td>39.3</td>
+                        <td>0.99</td>
+                        <td>0.22</td>
+                        <td>0.20</td>
+                        <td>0.33</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>압구정로데오</td>
+                        <td>38.2</td>
+                        <td>0.80</td>
+                        <td>0.29</td>
+                        <td>0.22</td>
+                        <td>0.31</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>청담사거리</td>
+                        <td>37.5</td>
+                        <td>0.80</td>
+                        <td>0.28</td>
+                        <td>0.18</td>
+                        <td>0.32</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>가로수길</td>
+                        <td>35.4</td>
+                        <td>0.85</td>
+                        <td>0.21</td>
+                        <td>0.23</td>
+                        <td>0.28</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>양재역 8번</td>
+                        <td>32.4</td>
+                        <td>0.98</td>
+                        <td>0.02</td>
+                        <td>0.23</td>
+                        <td>0.37</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>신논현역 1번</td>
+                        <td>27.3</td>
+                        <td>0.98</td>
+                        <td>0.01</td>
+                        <td>0.16</td>
+                        <td>0.21</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>역삼역 4번</td>
+                        <td>24.6</td>
+                        <td>1.00</td>
+                        <td>0.00</td>
+                        <td>0.06</td>
+                        <td>0.17</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Methodology -->
+        <div class="card">
+            <h2>📐 분석 방법론 (V5.30)</h2>
+            <div class="methodology">
+                <h3>세부 지표 및 가중치 체계</h3>
+                <table class="weight-table">
+                    <thead>
+                        <tr>
+                            <th>차원</th>
+                            <th>가중치</th>
+                            <th>세부 지표</th>
+                            <th>세부 가중치</th>
+                            <th>차트 번호</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>경쟁</td>
+                            <td>20%</td>
+                            <td>의원/피부과 점포 수 (역산)</td>
+                            <td>100%</td>
+                            <td>A1</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2">고객</td>
+                            <td rowspan="2">40%</td>
+                            <td>타겟 매출 (20-40대)</td>
+                            <td>60%</td>
+                            <td>B1</td>
+                        </tr>
+                        <tr>
+                            <td>여성 매출</td>
+                            <td>40%</td>
+                            <td>B2</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="4">인구</td>
+                            <td rowspan="4">20%</td>
+                            <td>유동인구</td>
+                            <td>40%</td>
+                            <td>C1</td>
+                        </tr>
+                        <tr>
+                            <td>타겟 유동인구 (20-40대)</td>
+                            <td>30%</td>
+                            <td>C2</td>
+                        </tr>
+                        <tr>
+                            <td>직장인구</td>
+                            <td>20%</td>
+                            <td>C3</td>
+                        </tr>
+                        <tr>
+                            <td>상주인구</td>
+                            <td>10%</td>
+                            <td>C4</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3">입지</td>
+                            <td rowspan="3">20%</td>
+                            <td>집객시설 수</td>
+                            <td>40%</td>
+                            <td>D1</td>
+                        </tr>
+                        <tr>
+                            <td>평균 소득</td>
+                            <td>30%</td>
+                            <td>D2</td>
+                        </tr>
+                        <tr>
+                            <td>의료비 지출</td>
+                            <td>30%</td>
+                            <td>D3</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Formula Section -->
+        <div class="card">
+            <h2>🔢 세부 지표 산출식</h2>
+
+            <div class="insight-box" style="background: #fff8e8; border-color: #FFE66D;">
+                <h3>📈 정규화 함수 (Min-Max Normalization)</h3>
+                <p
+                    style="font-family: 'Consolas', monospace; background: white; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                    <strong>N(x)</strong> = (x - min) / (max - min)<br>
+                    <span style="color: #666;">※ 결과값 범위: 0 ~ 1 (0이 최소, 1이 최대)</span>
+                </p>
+            </div>
+
+            <h3 style="margin: 25px 0 15px; color: #FF6B6B;">A. 경쟁 환경 (Competition)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>지표</th>
+                        <th>산출식</th>
+                        <th>데이터 소스</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>경쟁 점포 수</strong></td>
+                        <td style="text-align: left; font-family: 'Consolas', monospace;">
+                            SUM(점포_수) WHERE 서비스_업종_코드_명 LIKE '%의원%' OR LIKE '%피부%'
+                        </td>
+                        <td>점포-상권.csv</td>
+                    </tr>
+                    <tr>
+                        <td><strong>경쟁 점수</strong></td>
+                        <td style="text-align: left; font-family: 'Consolas', monospace;">
+                            <strong>경쟁_점수 = 1 - N(경쟁_점포수)</strong><br>
+                            <span style="color: #666;">※ 역산: 점포 수가 적을수록 높은 점수</span>
+                        </td>
+                        <td>산출값</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="margin: 25px 0 15px; color: #FFE66D;">B. 고객 수요 (Customer)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>지표</th>
+                        <th>산출식</th>
+                        <th>데이터 소스</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>타겟 매출</strong></td>
+                        <td style="text-align: left; font-family: 'Consolas', monospace;">
+                            연령대_20_매출_금액 + 연령대_30_매출_금액 + 연령대_40_매출_금액
+                        </td>
+                        <td>추정매출-상권.csv</td>
+                    </tr>
+                    <tr>
+                        <td><strong>여성 매출</strong></td>
+                        <td style="text-align: left; font-family: 'Consolas', monospace;">
+                            SUM(여성_매출_금액)
+                        </td>
+                        <td>추정매출-상권.csv</td>
+                    </tr>
+                    <tr>
+                        <td><strong>고객 점수</strong></td>
+                        <td style="text-align: left; font-family: 'Consolas', monospace;">
+                            <strong>고객_점수 = N(타겟_매출) × 0.6 + N(여성_매출) × 0.4</strong>
+                        </td>
+                        <td>산출값</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="margin: 25px 0 15px; color: #4ECDC4;">C. 인구 유동 (Population)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>지표</th>
+                        <th>산출식</th>
+                        <th>데이터 소스</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>유동인구</strong></td>
+                        <td style="text-align: left; font-family: 'Consolas', monospace;">
+                            SUM(총_유동인구_수)
+                        </td>
+                        <td>길단위인구-상권.csv</td>
+                    </tr>
+                    <tr>
+                        <td><strong>타겟 유동인구</strong></td>
+                        <td style="text-align: left; font-family: 'Consolas', monospace;">
+                            연령대_20_유동인구_수 + 연령대_30_유동인구_수 + 연령대_40_유동인구_수
+                        </td>
+                        <td>길단위인구-상권.csv</td>
+                    </tr>
+                    <tr>
+                        <td><strong>직장인구</strong></td>
+                        <td style="text-align: left; font-family: 'Consolas', monospace;">
+                            SUM(총_직장_인구_수)
+                        </td>
+                        <td>직장인구-상권.csv</td>
+                    </tr>
+                    <tr>
+                        <td><strong>상주인구</strong></td>
+                        <td style="text-align: left; font-family: 'Consolas', monospace;">
+                            SUM(총_상주인구_수)
+                        </td>
+                        <td>상주인구-상권.csv</td>
+                    </tr>
+                    <tr>
+                        <td><strong>인구 점수</strong></td>
+                        <td style="text-align: left; font-family: 'Consolas', monospace;">
+                            <strong>인구_점수 = N(유동) × 0.4 + N(타겟유동) × 0.3 + N(직장) × 0.2 + N(상주) × 0.1</strong>
+                        </td>
+                        <td>산출값</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="margin: 25px 0 15px; color: #45B7D1;">D. 입지 조건 (Location)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>지표</th>
+                        <th>산출식</th>
+                        <th>데이터 소스</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>집객시설</strong></td>
+                        <td style="text-align: left; font-family: 'Consolas', monospace;">
+                            SUM(집객시설_수)
+                        </td>
+                        <td>집객시설-상권.csv</td>
+                    </tr>
+                    <tr>
+                        <td><strong>평균 소득</strong></td>
+                        <td style="text-align: left; font-family: 'Consolas', monospace;">
+                            AVG(월_평균_소득_금액)
+                        </td>
+                        <td>소득소비-상권.csv</td>
+                    </tr>
+                    <tr>
+                        <td><strong>의료비 지출</strong></td>
+                        <td style="text-align: left; font-family: 'Consolas', monospace;">
+                            SUM(의료비_지출_총금액)
+                        </td>
+                        <td>소득소비-상권.csv</td>
+                    </tr>
+                    <tr>
+                        <td><strong>입지 점수</strong></td>
+                        <td style="text-align: left; font-family: 'Consolas', monospace;">
+                            <strong>입지_점수 = N(집객시설) × 0.4 + N(평균소득) × 0.3 + N(의료비) × 0.3</strong>
+                        </td>
+                        <td>산출값</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="margin: 25px 0 15px; color: #9B59B6;">E. 종합 점수 (Composite Score)</h3>
+            <div class="insight-box" style="background: #f3e8ff; border-color: #9B59B6;">
+                <h3>🏆 최종 종합 점수 산출식</h3>
+                <p
+                    style="font-family: 'Consolas', monospace; background: white; padding: 20px; border-radius: 8px; margin-top: 10px; font-size: 1.1em;">
+                    <strong>종합점수</strong> = (<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;경쟁_점수 × <span style="color: #FF6B6B;">0.20</span> +<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;고객_점수 × <span
+                        style="color: #FFE66D; background: #333; padding: 2px 5px; border-radius: 3px;">0.40</span>
+                    +<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;인구_점수 × <span style="color: #4ECDC4;">0.20</span> +<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;입지_점수 × <span style="color: #45B7D1;">0.20</span><br>
+                    ) × <strong>100</strong>
+                </p>
+                <p style="margin-top: 15px; color: #666;">
+                    ※ 결과값 범위: 0 ~ 100점<br>
+                    ※ 고객 수요(40%)가 가장 높은 가중치 → 피부과 특성상 매출이 핵심 지표
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>© 2026 의원급 피부과 입지 분석 프로젝트 | 데이터 출처: 서울시 상권분석 오픈데이터</p>
+            <p>분석 버전: V5.30 Complete | 생성일: 2026-02-04</p>
+            <p style="margin-top: 10px;">차트 14종 | 로데이터 CSV 5종 | PPT 활용 최적화 (300 DPI)</p>
+        </footer>
+    </div>
+</body>
+
+</html>

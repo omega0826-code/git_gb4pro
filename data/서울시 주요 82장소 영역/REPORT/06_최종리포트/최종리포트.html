@@ -1,0 +1,190 @@
+
+    <!DOCTYPE html>
+    <html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>피부과 입지 분석 리포트</title>
+        <style>
+            body { font-family: 'Malgun Gothic', sans-serif; line-height: 1.6; max-width: 1000px; margin: 0 auto; padding: 20px; background-color: #f8f9fa; }
+            .container { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+            h1 { color: #e74c3c; border-bottom: 3px solid #e74c3c; padding-bottom: 10px; }
+            h2 { color: #2c3e50; border-left: 5px solid #3498db; padding-left: 10px; margin-top: 40px; }
+            .summary { background: #fff3f3; padding: 20px; border-radius: 8px; margin-bottom: 30px; }
+            .recommendation { font-size: 1.5em; color: #c0392b; font-weight: bold; }
+            .chart-box { text-align: center; margin: 20px 0; }
+            .chart-box img { max-width: 90%; border: 1px solid #eee; border-radius: 8px; }
+            table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+            th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+            th { background: #3498db; color: white; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>의원급 피부과 최적 입지 분석 리포트</h1>
+            
+            <div class="summary">
+                <h2>필수 요약</h2>
+                <p><strong>분석 일시:</strong> 2026-02-04 00:58</p>
+                <p><strong>최종 추천 상권:</strong> <span class="recommendation">강남역, 강남 마이스 관광특구, 선릉역</span></p>
+            </div>
+            
+            <h2>1. 경쟁 환경 분석</h2>
+            <div class="chart-box">
+                <img src="../01_경쟁환경분석/경쟁밀도_히트맵.png">
+                <p>상권별 피부과 의원 분포 상세</p>
+            </div>
+            
+            <h2>2. 고객 수요 분석</h2>
+            <div class="chart-box">
+                <img src="../02_고객분석/연령성별_매출분포.png">
+                <p>타겟 고객(20-40대 여성) 매출 밀집도</p>
+            </div>
+            
+            <h2>3. 인구 유동 분석</h2>
+            <div class="chart-box">
+                <img src="../03_인구유동분석/인구유동_분석결과.png">
+                <p>상주 및 직장 인구 구조 비교</p>
+            </div>
+            
+            <h2>4. 입지 조건 분석</h2>
+            <div class="chart-box">
+                <img src="../04_입지조건분석/집객시설_분포.png">
+                <p>주요 집객시설 분포 현황</p>
+            </div>
+            
+            <h2>5. 종합 평가 결과</h2>
+            <div class="chart-box">
+                <img src="../05_종합평가/종합점수_순위.png">
+            </div>
+            
+            <h2>6. 상권별 종합 지표 데이터</h2>
+            <table border="1" class="dataframe table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>상권_명</th>
+      <th>경쟁지표</th>
+      <th>고객지표</th>
+      <th>인구지표</th>
+      <th>입지지표</th>
+      <th>경쟁_N</th>
+      <th>고객_N</th>
+      <th>인구_N</th>
+      <th>입지_N</th>
+      <th>종합점수</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>강남역</td>
+      <td>684</td>
+      <td>2.765522e+11</td>
+      <td>93439</td>
+      <td>389</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>0.913853</td>
+      <td>1.000000</td>
+      <td>78.277064</td>
+    </tr>
+    <tr>
+      <td>강남 마이스 관광특구</td>
+      <td>10</td>
+      <td>5.730538e+10</td>
+      <td>102066</td>
+      <td>35</td>
+      <td>0.989721</td>
+      <td>0.207004</td>
+      <td>1.000000</td>
+      <td>0.073298</td>
+      <td>49.540560</td>
+    </tr>
+    <tr>
+      <td>선릉역</td>
+      <td>242</td>
+      <td>7.399124e+10</td>
+      <td>64677</td>
+      <td>152</td>
+      <td>0.649046</td>
+      <td>0.267356</td>
+      <td>0.626644</td>
+      <td>0.379581</td>
+      <td>43.799631</td>
+    </tr>
+    <tr>
+      <td>청담사거리(청담동명품거리)</td>
+      <td>137</td>
+      <td>7.447698e+10</td>
+      <td>21434</td>
+      <td>95</td>
+      <td>0.803231</td>
+      <td>0.269112</td>
+      <td>0.194831</td>
+      <td>0.230366</td>
+      <td>35.333064</td>
+    </tr>
+    <tr>
+      <td>압구정로데오역(압구정로데오)</td>
+      <td>142</td>
+      <td>8.363999e+10</td>
+      <td>17611</td>
+      <td>77</td>
+      <td>0.795888</td>
+      <td>0.302254</td>
+      <td>0.156656</td>
+      <td>0.183246</td>
+      <td>34.805976</td>
+    </tr>
+    <tr>
+      <td>가로수길</td>
+      <td>108</td>
+      <td>5.737694e+10</td>
+      <td>13947</td>
+      <td>44</td>
+      <td>0.845815</td>
+      <td>0.207263</td>
+      <td>0.120068</td>
+      <td>0.096859</td>
+      <td>29.545362</td>
+    </tr>
+    <tr>
+      <td>양재역 8번(양재동우체국)</td>
+      <td>15</td>
+      <td>5.983120e+09</td>
+      <td>12735</td>
+      <td>27</td>
+      <td>0.982379</td>
+      <td>0.021376</td>
+      <td>0.107966</td>
+      <td>0.052356</td>
+      <td>23.709064</td>
+    </tr>
+    <tr>
+      <td>신논현역 1번</td>
+      <td>17</td>
+      <td>2.145182e+09</td>
+      <td>5887</td>
+      <td>8</td>
+      <td>0.979442</td>
+      <td>0.007495</td>
+      <td>0.039583</td>
+      <td>0.002618</td>
+      <td>20.732660</td>
+    </tr>
+    <tr>
+      <td>역삼역 4번</td>
+      <td>3</td>
+      <td>7.299859e+07</td>
+      <td>1923</td>
+      <td>7</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>20.000000</td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+    </body>
+    </html>
+    

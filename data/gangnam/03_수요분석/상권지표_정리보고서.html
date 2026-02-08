@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상권별 세부 지표 및 산출 로직 리포트</title>
+    <style>
+        body {
+            font-family: 'Malgun Gothic', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #f4f7f6;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 30px;
+            background: linear-gradient(135deg, #4A90E2, #50E3C2);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            overflow-x: auto;
+        }
+
+        h2 {
+            border-left: 5px solid #4A90E2;
+            padding-left: 15px;
+            color: #2c3e50;
+            margin-bottom: 25px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: #fff;
+            min-width: 800px;
+        }
+
+        th,
+        td {
+            padding: 12px 10px;
+            text-align: center;
+            border: 1px solid #eee;
+            font-size: 0.9em;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .formula-cell {
+            text-align: left;
+            font-family: 'Consolas', monospace;
+            background-color: #fdfdfd;
+            font-size: 0.85em;
+        }
+
+        .dim-header {
+            background-color: #eef2f7;
+            font-weight: bold;
+        }
+
+        .highlight-area {
+            background-color: #f0f7ff;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #777;
+            font-size: 0.9em;
+        }
+
+        .unit {
+            color: #888;
+            font-size: 0.8em;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>📊 상권별 세부 지표 및 산출 로직 리포트</h1>
+        <p>피부과 입지 평가를 위한 4대 차원 및 11개 핵심 지표 체계와 상권별 실제 데이터</p>
+    </header>
+
+    <div class="card">
+        <h2>📐 지표 산출 로직 및 상권별 데이터 (Data & Logic)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">분석 지표</th>
+                    <th>산출 로직 (Formula)</th>
+                    <th class="highlight-area">강남역</th>
+                    <th class="highlight-area">선릉역</th>
+                    <th class="highlight-area">강남 마이스</th>
+                    <th class="highlight-area">압구정로데오</th>
+                    <th class="highlight-area">청담사거리</th>
+                    <th class="highlight-area">가로수길</th>
+                    <th class="highlight-area">양재역 8번</th>
+                    <th class="highlight-area">신논현역 1번</th>
+                    <th class="highlight-area">역삼역 4번</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 경쟁 -->
+                <tr>
+                    <td rowspan="1" class="dim-header">경쟁</td>
+                    <td><strong>경쟁 점포수</strong></td>
+                    <td class="formula-cell">SUM(의원/피부과 점포)</td>
+                    <td>684</td>
+                    <td>108</td>
+                    <td>10</td>
+                    <td>242</td>
+                    <td>137</td>
+                    <td>142</td>
+                    <td>15</td>
+                    <td>17</td>
+                    <td>3</td>
+                </tr>
+                <!-- 고객 -->
+                <tr>
+                    <td rowspan="2" class="dim-header">고객</td>
+                    <td><strong>타겟 매출</strong><span class="unit">(억원)</span></td>
+                    <td class="formula-cell">20/30/40대 매출 합계</td>
+                    <td>2,765</td>
+                    <td>573</td>
+                    <td>573</td>
+                    <td>739</td>
+                    <td>744</td>
+                    <td>836</td>
+                    <td>59.8</td>
+                    <td>21.4</td>
+                    <td>0.7</td>
+                </tr>
+                <tr>
+                    <td><strong>여성 매출</strong><span class="unit">(억원)</span></td>
+                    <td class="formula-cell">전체 여성 매출 합계</td>
+                    <td>2,190</td>
+                    <td>457</td>
+                    <td>535</td>
+                    <td>514</td>
+                    <td>672</td>
+                    <td>619</td>
+                    <td>40.6</td>
+                    <td>11.5</td>
+                    <td>0.4</td>
+                </tr>
+                <!-- 인구 -->
+                <tr>
+                    <td rowspan="4" class="dim-header">인구</td>
+                    <td><strong>유동인구</strong><span class="unit">(천명)</span></td>
+                    <td class="formula-cell">총 유동인구수(월)</td>
+                    <td>8,156</td>
+                    <td>2,143</td>
+                    <td>113</td>
+                    <td>5,371</td>
+                    <td>1,395</td>
+                    <td>2,008</td>
+                    <td>1,788</td>
+                    <td>1,308</td>
+                    <td>609</td>
+                </tr>
+                <tr>
+                    <td><strong>타겟 유동</strong><span class="unit">(천명)</span></td>
+                    <td class="formula-cell">20/30/40대 유동인구 합</td>
+                    <td>5,869</td>
+                    <td>1,378</td>
+                    <td>79.8</td>
+                    <td>3,282</td>
+                    <td>851</td>
+                    <td>1,360</td>
+                    <td>961</td>
+                    <td>796</td>
+                    <td>449</td>
+                </tr>
+                <tr>
+                    <td><strong>직장인구</strong><span class="unit">(명)</span></td>
+                    <td class="formula-cell">총 직장인구수</td>
+                    <td>87,191</td>
+                    <td>11,262</td>
+                    <td>102,032</td>
+                    <td>59,959</td>
+                    <td>18,696</td>
+                    <td>15,957</td>
+                    <td>6,972</td>
+                    <td>1,661</td>
+                    <td>1,181</td>
+                </tr>
+                <tr>
+                    <td><strong>상주인구</strong><span class="unit">(명)</span></td>
+                    <td class="formula-cell">총 상주인구수</td>
+                    <td>6,248</td>
+                    <td>2,685</td>
+                    <td>34</td>
+                    <td>4,718</td>
+                    <td>2,738</td>
+                    <td>1,654</td>
+                    <td>5,763</td>
+                    <td>4,226</td>
+                    <td>742</td>
+                </tr>
+                <!-- 입지 -->
+                <tr>
+                    <td rowspan="3" class="dim-header">입지</td>
+                    <td><strong>집객시설</strong><span class="unit">(개)</span></td>
+                    <td class="formula-cell">상권 내 집객시설 수</td>
+                    <td>389</td>
+                    <td>44</td>
+                    <td>35</td>
+                    <td>152</td>
+                    <td>95</td>
+                    <td>77</td>
+                    <td>27</td>
+                    <td>8</td>
+                    <td>7</td>
+                </tr>
+                <tr>
+                    <td><strong>평균 소득</strong><span class="unit">(만원)</span></td>
+                    <td class="formula-cell">월 평균 소득 금액</td>
+                    <td>445</td>
+                    <td>360</td>
+                    <td>701</td>
+                    <td>348</td>
+                    <td>408</td>
+                    <td>437</td>
+                    <td>374</td>
+                    <td>272</td>
+                    <td>411</td>
+                </tr>
+                <tr>
+                    <td><strong>의료비 지출</strong><span class="unit">(백만원)</span></td>
+                    <td class="formula-cell">의료비 지출 총금액</td>
+                    <td>476</td>
+                    <td>284</td>
+                    <td>0</td>
+                    <td>455</td>
+                    <td>215</td>
+                    <td>192</td>
+                    <td>436</td>
+                    <td>331</td>
+                    <td>121</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>📄 데이터 해석 가이드</h2>
+        <ul>
+            <li>매출 및 유동인구 데이터는 <strong>최근 3개년 평균값</strong>을 기준으로 합니다.</li>
+            <li><strong>경쟁 점포수:</strong> 수치가 높을수록 해당 상권의 경쟁이 치열함을 의미합니다.</li>
+            <li><strong>의료비 지출:</strong> 상권 내 거주자/이용객의 실제 의료 서비스 소비 성향을 나타냅니다. (데이터 소스에 따라 일부 상권은 0으로 표시될 수 있음)</li>
+            <li>모든 수치는 분석용 로데이터(CSV)에서 추출된 실제 값입니다.</li>
+        </ul>
+    </div>
+
+    <footer>
+        <p>본 리포트는 피부과 최적 입지 분석 시스템 V5.30의 지표 체계를 정리한 문서입니다.</p>
+        <p>© 2026 분석 데이터 가이드 | 생성일: 2026-02-07</p>
+    </footer>
+
+</body>
+
+</html>

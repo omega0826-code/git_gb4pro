@@ -1,0 +1,60 @@
+
+    <!DOCTYPE html>
+    <html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>강남구 병원 현황 시각화 보고서</title>
+        <style>
+            body { font-family: 'Malgun Gothic', dotum, sans-serif; line-height: 1.6; color: #333; max-width: 1000px; margin: 0 auto; padding: 20px; background-color: #f4f7f6; }
+            h1 { text-align: center; color: #2c3e50; border-bottom: 2px solid #2c3e50; padding-bottom: 10px; }
+            .summary { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 30px; }
+            .chart-container { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 30px; text-align: center; }
+            .chart-title { font-size: 1.2em; font-weight: bold; color: #2980b9; margin-bottom: 15px; }
+            .chart-desc { color: #666; font-size: 0.9em; margin-top: 10px; text-align: left; }
+            img { max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; }
+            .footer { text-align: center; color: #7f8c8d; font-size: 0.8em; margin-top: 50px; }
+        </style>
+    </head>
+    <body>
+        <h1>강남구 병원 현황 시각화 보고서</h1>
+        
+        <div class="summary">
+            <h2>데이터 요약</h2>
+            <ul>
+                <li><strong>지역</strong>: 서울특별시 강남구</li>
+                <li><strong>기준 시점</strong>: 2025년 12월</li>
+                <li><strong>총 병원 수</strong>: 3,099개</li>
+                <li><strong>분석 항목</strong>: 행정동별 분포, 종별 비중, 주요 진료과목, 규모 분포, 개원 추이</li>
+            </ul>
+        </div>
+    
+        <div class="chart-container">
+            <div class="chart-title">행정동별 병원 수 분포</div>
+            <img src="v1_dong_distribution.png" alt="행정동별 병원 수 분포">
+            <div class="chart-desc">강남구 내 주요 행정동별 병원 밀집도를 보여줍니다. 신사동, 역삼동, 압구정동 순으로 높은 밀집도를 보입니다.</div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-title">병원 종별 비중</div>
+            <img src="v2_type_distribution.png" alt="병원 종별 비중">
+            <div class="chart-desc">상급종합, 종합병원, 의원 등 병원 종별 구성을 나타냅니다. 의원급이 압도적인 비중을 차지합니다.</div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-title">병원 규모별 분포</div>
+            <img src="v4_size_distribution.png" alt="병원 규모별 분포">
+            <div class="chart-desc">의사 수에 따른 병원 규모 분포입니다. 대부분의 병원이 1인 중심의 소형 병원입니다.</div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-title">연도별 개원 추이</div>
+            <img src="v5_opening_trend.png" alt="연도별 개원 추이">
+            <div class="chart-desc">강남구의 연도별 신규 개원 현황과 누적 병원 수 추이입니다. 최근으로 올수록 개원 속도가 빨라지며 시장이 성숙해지는 과정을 볼 수 있습니다.</div>
+        </div>
+        
+        <div class="footer">
+            본 보고서는 Antigravity AI Assistant에 의해 생성되었습니다. (2026-02-16 15:14:41)
+        </div>
+    </body>
+    </html>
+    

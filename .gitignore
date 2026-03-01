@@ -1,3 +1,5 @@
+# 환경설정
+
 # 메모/임시
 mynote.txt
 temp/
@@ -19,16 +21,22 @@ temp/
 *.pptx
 *.ppt
 *.hwp
+*.hwpx
+*.odt
+*.rtf
 *.pdf
 *.csv
+*.parquet
 
-
-# 가상환경/캐시/IDE
+# 가상환경/캐시/IDE/
+*.env
 .venv/
 env/
 __pycache__/
 .vscode/
 .idea/
+.test/
+.agent/
 
 # 로그/프로세스
 *.log*
@@ -70,11 +78,50 @@ coverage/
 # 압축/배포
 *.zip
 *.tar.gz
+*.gz
 *.rar
 *.7z
+
+# 폰트 파일
+*.ttf
+*.otf
+*.woff
+*.woff2
+*.hpf
+
+# 그림/이미지 파일
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.tif
+*.tiff
+*.ico
+*.svg
+*.webp
+*.psd
+*.ai
+
+# GIS 파일
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.sbn
+*.sbx
+*.geojson
+*.kml
+*.kmz
+*.gpkg
+*.gpx
+*.osm
+*.gdb/
 
 # 기타
 .DS_Store
 *.iml
 *.ipr
 *.iws
+*.rdf
